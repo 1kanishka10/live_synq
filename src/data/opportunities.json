@@ -1,0 +1,221 @@
+[
+  {
+    "id": "o1",
+    "category": "Scholarship",
+    "title": "Merit-cum-Means Scholarship",
+    "eligibility": "Year 1",
+    "deadline": "2026-09-25",
+    "description": "Applications open for first-years. Documents go to the Scholarship Office by 25 September.",
+    "whyHere": "Posted 28 days ago in Official Notices Group - a channel nobody scrolls back through.",
+    "confidence": "stated",
+    "uncertainty": null,
+    "deadlineText": "by 25th September 2026",
+    "sources": [
+      {
+        "id": "msg_040",
+        "channel": "Official Notices Group",
+        "sender": "Scholarship Office",
+        "sentAt": "2026-08-18T14:00",
+        "excerpt": "applications for the Merit-cum-Means Scholarship are now open ... by 25th September 2026"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "o2",
+    "category": "Cultural",
+    "title": "Tarang fest auditions",
+    "eligibility": "Open to all years and branches",
+    "deadline": "2026-09-20",
+    "description": "Auditions for Dance, Music, Drama, Fine Arts and Literary, 20-23 September in the Main Auditorium.",
+    "whyHere": "The answer existed two days before anyone started looking for it - in a channel they were not reading.",
+    "confidence": "stated",
+    "uncertainty": "Category-wise timings are only on the Auditorium notice board, not in the message.",
+    "deadlineText": "from 20th-23rd September 2026",
+    "sources": [
+      {
+        "id": "msg_041",
+        "channel": "Official Notices Group",
+        "sender": "Cultural Committee, Tarang Fest",
+        "sentAt": "2026-08-25T14:00",
+        "excerpt": "Auditions for various societies ... 20th-23rd September 2026 in the Main Auditorium"
+      },
+      {
+        "id": "msg_039",
+        "channel": "General Freshers/Batch Group",
+        "sender": "Multiple Students",
+        "sentAt": "2026-08-27T14:00",
+        "excerpt": "Tarang ke auditions ke baare mein kisi ko kuch pata hai? koi exact date nahi mili abhi tak"
+      }
+    ],
+    "sourceCount": 2
+  },
+  {
+    "id": "o3",
+    "category": "Academic",
+    "title": "University-Wide Hackathon registration",
+    "eligibility": "Open to all years and branches",
+    "deadline": "2026-09-22",
+    "description": "Teams of 4 to 6 must register on the college portal by 22 September. Event is 28-29 September.",
+    "whyHere": "Posted once in Official Notices Group, thirteen days ago.",
+    "confidence": "stated",
+    "uncertainty": null,
+    "deadlineText": "by 22nd September 2026",
+    "sources": [
+      {
+        "id": "msg_042",
+        "channel": "Official Notices Group",
+        "sender": "SIH/Hackathon Faculty Coordinator",
+        "sentAt": "2026-09-02T14:00",
+        "excerpt": "University-Wide Hackathon ... 28th-29th September 2026. Team registration ... by 22nd September 2026"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "o4",
+    "category": "Academic",
+    "title": "Library Book Bank scheme",
+    "eligibility": "Open to all years and branches",
+    "deadline": "2026-09-24",
+    "description": "Free textbook lending for the semester. Form and a photo to the Library Counter by 24 September.",
+    "whyHere": "Free textbooks, announced once, in a notices group.",
+    "confidence": "stated",
+    "uncertainty": null,
+    "deadlineText": "by 24th September 2026",
+    "sources": [
+      {
+        "id": "msg_044",
+        "channel": "Official Notices Group",
+        "sender": "Central Library",
+        "sentAt": "2026-09-09T14:00",
+        "excerpt": "Book Bank Scheme (free textbook lending for the semester) ... by 24th September 2026"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "o5",
+    "category": "Cultural",
+    "title": "Neutron game dev orientation",
+    "eligibility": "Open to all years and branches",
+    "deadline": "2026-09-22",
+    "description": "Game Development Club orientation with an industry speaker, 22 September, 12-3 PM.",
+    "whyHere": "Announced twice in two different society groups, in completely different words.",
+    "confidence": "stated",
+    "uncertainty": null,
+    "deadlineText": "22nd September, 12 PM - 3 PM",
+    "sources": [
+      {
+        "id": "msg_032",
+        "channel": "Neutron Gaming Society",
+        "sender": "Society Account",
+        "sentAt": "2026-09-08T13:03",
+        "excerpt": "NEUTRON - Game Development Club, IGDTUW is here with it's ORIENTATION! 22 September, 12 PM onwards"
+      },
+      {
+        "id": "msg_031",
+        "channel": "Neutron Official Club Group",
+        "sender": "Society Account",
+        "sentAt": "2026-09-09T13:03",
+        "excerpt": "NEUTRON ORIENTATION - Game Development Club. DATE: 22nd September. TIME: 12 PM - 3 PM. VENUE: Seminar Hall"
+      }
+    ],
+    "sourceCount": 2
+  },
+  {
+    "id": "o6",
+    "category": "Scholarship",
+    "title": "thingQbator Innovation Mela",
+    "eligibility": "Open to all years and branches",
+    "deadline": "2026-09-28",
+    "description": "Two-day idea competition on campus. Rs 10,000 for the winning team.",
+    "whyHere": "Shared once in an unofficial help group.",
+    "confidence": "stated",
+    "uncertainty": "No separate registration cut-off is given; registration appears to be on the day.",
+    "deadlineText": "Day 1 (28 Sep) - Registration & Mentorship",
+    "sources": [
+      {
+        "id": "msg_002",
+        "channel": "Fresher Help Group (Unofficial)",
+        "sender": "Senior (Group Admin)",
+        "sentAt": "2026-09-11T12:00",
+        "excerpt": "thingQbator Innovation Mela 2026, 28th-29th September. Prizes for Top 3 Teams"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "o7",
+    "category": "Academic",
+    "title": "Student ID card collection",
+    "eligibility": "Year 1",
+    "deadline": null,
+    "description": "If you have not collected your ID card, the Admin Office issues them 9 AM to 1 PM, weekdays.",
+    "whyHere": "Needed for exam-hall entry, and there is no deadline attached to make it feel urgent.",
+    "confidence": "missing",
+    "uncertainty": "No closing date is given - just office hours.",
+    "deadlineText": null,
+    "sources": [
+      {
+        "id": "msg_043",
+        "channel": "Official Notices Group",
+        "sender": "Admin Office",
+        "sentAt": "2026-09-04T14:00",
+        "excerpt": "first-year students who have not yet collected their college ID cards ... 9 AM - 1 PM, Monday to Friday"
+      },
+      {
+        "id": "msg_049",
+        "channel": "Class Updates (Official Group)",
+        "sender": "CR (Class Representative)",
+        "sentAt": "2026-09-11T13:04",
+        "excerpt": "[Forwarded] ID Card Application Form - Everyone please fill this form for id card"
+      }
+    ],
+    "sourceCount": 2
+    },
+  {
+    "id": "o8",
+    "category": "Team",
+    "title": "SIH 2026 team looking for a member",
+    "eligibility": "First-years welcome. Basic coding knowledge asked for.",
+    "deadline": null,
+    "description": "A first-year team needs one more person for Smart India Hackathon 2026, willing to commit time across the hackathon.",
+    "whyHere": "Posted two days ago in an unofficial help group. No deadline, so it was nearly dropped as chatter - but an open team place is exactly the kind of thing a fresher never hears about.",
+    "confidence": "missing",
+    "uncertainty": "No deadline was given and no way to tell whether the place is still open. You would have to message the sender to find out.",
+    "deadlineText": "",
+    "sources": [
+      {
+        "id": "msg_020",
+        "channel": "Fresher Help Group",
+        "sender": "Student (first year, CS-AI)",
+        "sentAt": "2026-09-13T19:25",
+        "excerpt": "We need a dedicated person for our SIH 2026 team ... If you are interested and can commit to the team, please let me know!"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "o9",
+    "category": "Team",
+    "title": "SIH team with one spot open",
+    "eligibility": "Integration and frontend. JavaScript and Python.",
+    "deadline": null,
+    "description": "A different team looking for one more member for Smart India Hackathon, for integration and frontend work. DM the sender with an introduction and past projects.",
+    "whyHere": "Posted 29 August in an unofficial help group and never repeated. Seventeen days old, so likely filled - shown anyway rather than hidden.",
+    "confidence": "missing",
+    "uncertainty": "No deadline given, and the message is over two weeks old. The spot has probably gone.",
+    "deadlineText": "",
+    "sources": [
+      {
+        "id": "msg_019",
+        "channel": "Fresher Help Group",
+        "sender": "Student",
+        "sentAt": "2026-08-29T20:27",
+        "excerpt": "SIH Team - One Spot Open! We are looking for one more member ... integration + frontend ... DM me with a brief introduction and your relevant experience/projects."
+      }
+    ],
+    "sourceCount": 1
+  }
+]

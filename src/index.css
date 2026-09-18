@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   SYNQ THEME LAYER
+   Dark is the default. [data-theme="light"] repaints the content
+   area; the sidebar and dropdowns stay dark on purpose.
+   ============================================================ */
+
+:root {
+  --c-canvas: 5 11 30;
+  --c-surface: 12 22 49;
+  --c-sky: 143 192 255;
+  --c-sky-50: 195 220 255;
+  --c-ocean: 47 95 224;
+  --c-ocean-light: 76 123 245;
+  --c-ocean-dark: 27 63 168;
+  --c-slate: 132 148 184;
+  --c-ink: 234 240 255;
+  --c-critical: 255 107 90;
+  --c-high: 255 181 71;
+  --c-medium: 53 211 154;
+
+  --hair: rgba(143, 192, 255, 0.1);
+  --hair-lit: rgba(143, 192, 255, 0.22);
+  --panel-bg: rgba(12, 22, 49, 0.62);
+  --panel-sheen: rgba(143, 192, 255, 0.075);
+  --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 18px 44px -24px rgba(0, 0, 0, 0.95);
+  --shadow-lift: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 28px 60px -28px rgba(0, 0, 0, 1);
+
+  --bg-1: rgba(47, 95, 224, 0.28);
+  --bg-2: rgba(143, 192, 255, 0.13);
+  --bg-3: rgba(27, 63, 168, 0.24);
+}
+
+:root[data-theme="light"] {
+  --c-canvas: 244 247 253;
+  --c-surface: 255 255 255;
+  --c-sky: 27 79 176;
+   --c-sky-50: 220 232 255;
+  --c-ocean: 47 95 224;
+  --c-ocean-light: 76 123 245;
+  --c-ocean-dark: 27 63 168;
+  --c-slate: 90 103 132;
+  --c-ink: 10 20 48;
+  --c-critical: 193 68 45;
+  --c-high: 166 106 12;
+  --c-medium: 18 128 92;
+
+  --hair: rgba(10, 20, 48, 0.1);
+  --hair-lit: rgba(47, 95, 224, 0.35);
+  --panel-bg: rgba(255, 255, 255, 0.78);
+  --panel-sheen: rgba(47, 95, 224, 0.045);
+  --shadow-panel: 0 1px 2px rgba(10, 20, 48, 0.04),
+    0 12px 30px -18px rgba(10, 20, 48, 0.35);
+  --shadow-lift: 0 2px 4px rgba(10, 20, 48, 0.05),
+    0 20px 44px -22px rgba(10, 20, 48, 0.4);
+
+  --bg-1: rgba(47, 95, 224, 0.1);
+  --bg-2: rgba(143, 192, 255, 0.18);
+  --bg-3: rgba(47, 95, 224, 0.08);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: rgb(var(--c-canvas));
+  background-image:
+    radial-gradient(900px 520px at 10% -10%, var(--bg-1), transparent 62%),
+    radial-gradient(740px 460px at 94% 2%, var(--bg-2), transparent 60%),
+    radial-gradient(1100px 700px at 50% 110%, var(--bg-3), transparent 66%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-numeric: tabular-nums;
+  transition: background-color 0.25s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(var(--hair) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hair) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(1200px 820px at 50% 0%, #000 0%, transparent 78%);
+  mask-image: radial-gradient(1200px 820px at 50% 0%, #000 0%, transparent 78%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.6;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(var(--c-ocean-light)),
+    rgb(var(--c-sky)),
+    transparent
+  );
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.022em;
+}
+
+::selection {
+  background: rgba(47, 95, 224, 0.4);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--c-ocean-light));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---- Surfaces -------------------------------------------------*/
+@layer utilities {
+  .bg-canvas {
+    background-color: rgb(var(--c-canvas));
+  }
+
+  .border-white\/60 {
+    border-color: var(--hair);
+  }
+
+  .hover\:bg-white:hover {
+    background-color: rgba(143, 192, 255, 0.12);
+  }
+
+  .bg-ink\/50 {
+    background-color: rgba(3, 7, 18, 0.72);
+  }
+
+  .bg-ocean {
+    background-image: linear-gradient(
+      135deg,
+      #4c7bf5 0%,
+      #2f5fe0 55%,
+      #1b3fa8 100%
+    );
+    box-shadow: 0 10px 28px -12px rgba(47, 95, 224, 0.85);
+  }
+}
+
+.glass {
+  background-color: var(--panel-bg);
+  background-image: linear-gradient(
+    158deg,
+    var(--panel-sheen) 0%,
+    rgba(143, 192, 255, 0) 46%
+  );
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* The sidebar and every dropdown stay dark in both themes. */
+.glass-dark {
+  background: rgba(5, 11, 30, 0.92);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* So text inside them keeps its dark-theme colours when the page is light. */
+:root[data-theme="light"] .glass-dark .text-ink {
+  color: rgb(234 240 255);
+}
+:root[data-theme="light"] .glass-dark .text-ink\/70 {
+  color: rgba(234, 240, 255, 0.7);
+}
+:root[data-theme="light"] .glass-dark .text-slate {
+  color: rgb(148 163 197);
+}
+:root[data-theme="light"] .glass-dark .border-white\/60,
+:root[data-theme="light"] .glass-dark .border-slate\/20 {
+  border-color: rgba(143, 192, 255, 0.16);
+}
+
+/* ---- Entrance -------------------------------------------------*/
+@keyframes synq-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+#root > * {
+  animation: synq-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Scrollbar ------------------------------------------------*/
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--hair-lit);
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 10px;
+}

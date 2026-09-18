@@ -1,0 +1,191 @@
+[
+  {
+    "id": "d1",
+    "title": "IIT Bombay robotics workshop",
+    "tag": "ASME Society Group",
+    "dueInHours": 15,
+    "description": "Free 3-hour robotics workshop with an IIT Bombay certificate. Registration closes today.",
+    "actionLink": "forms.gle/p6Us6AtEgFQ67xJR8",
+    "contact": "Society Account",
+    "submission": "Fill the IGDTUW student registration form",
+    "rank": 1,
+    "confidence": "stated",
+    "uncertainty": null,
+    "issue": null,
+    "deadlineText": "Register by 15 September",
+    "consequence": "Registration is mandatory. Entry will be allowed only to registered participants.",
+    "location": "IGDTUW Auditorium",
+    "clashNote": null,
+    "history": null,
+    "sources": [
+      {
+        "id": "msg_013",
+        "channel": "ASME Society Group",
+        "sender": "Society Account",
+        "sentAt": "2026-09-10T10:00",
+        "excerpt": "IIT Bombay Techfest x IGDTUW-ASME, 3-hour Robotics Workshop, 18 September"
+      },
+      {
+        "id": "msg_014",
+        "channel": "Class Group (CS-AI)",
+        "sender": "Class Rep",
+        "sentAt": "2026-09-10T18:30",
+        "excerpt": "(forwarded, identical)"
+      },
+      {
+        "id": "msg_015",
+        "channel": "GDG IGDTUW Society Group",
+        "sender": "Society Account",
+        "sentAt": "2026-09-11T09:15",
+        "excerpt": "(forwarded, identical)"
+      },
+      {
+        "id": "msg_016",
+        "channel": "Class Group (CS-AI)",
+        "sender": "Class Rep",
+        "sentAt": "2026-09-12T11:00",
+        "excerpt": "(forwarded, identical)"
+      },
+      {
+        "id": "msg_017",
+        "channel": "ASME Society Group",
+        "sender": "Society Account",
+        "sentAt": "2026-09-13T20:00",
+        "excerpt": "(forwarded, identical)"
+      }
+    ],
+    "sourceCount": 5
+  },
+  {
+    "id": "d2",
+    "title": "Assignment hardcopy submission",
+    "tag": "Class Group (CS-AI)",
+    "dueInHours": null,
+    "description": "Write the assignment on paper and hand in a hardcopy. Due this week, but the exact day was never given.",
+    "actionLink": null,
+    "contact": "Multiple Students",
+    "submission": "Confirm the day and format with the teacher, then submit",
+    "rank": 2,
+    "confidence": "missing",
+    "uncertainty": "'Next week' was said on Friday 11 September, so most likely the week of 15 September - but no date was stated. Students also disagree on the format: file pages, or A4 stapled, or a file cover.",
+    "issue": null,
+    "deadlineText": "submit the hardcopy till next week",
+    "consequence": null,
+    "location": null,
+    "clashNote": null,
+    "history": null,
+    "sources": [
+      {
+        "id": "msg_005",
+        "channel": "Class Group (CS-AI)",
+        "sender": "Multiple Students",
+        "sentAt": "2026-09-11T21:43",
+        "excerpt": "Perform assignment on pages and submit the hardcopy till next week... practical on any coding app"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "d3",
+    "title": "GDG IGDTUW recruitment",
+    "tag": "GDG IGDTUW Society Group",
+    "dueInHours": 63,
+    "description": "Applications for Tech Circle Managers, Mentors and Core Team. Two days left.",
+    "actionLink": "forms.gle/YHdWK6mT5CWbiEnB8",
+    "contact": "Society Account",
+    "submission": "Fill the GDG recruitment form",
+    "rank": 3,
+    "confidence": "stated",
+    "uncertainty": null,
+    "issue": null,
+    "deadlineText": "Deadline : 17th September 2026, 11:59 PM",
+    "consequence": null,
+    "location": null,
+    "clashNote": null,
+    "history": null,
+    "sources": [
+      {
+        "id": "msg_012",
+        "channel": "GDG IGDTUW Society Group",
+        "sender": "Society Account",
+        "sentAt": "2026-09-13T14:00",
+        "excerpt": "Recruitment Form. Deadline : 17th September 2026, 11:59 PM"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "d4",
+    "title": "SIH internal hackathon",
+    "tag": "Class Group (BTech CSE-AI)",
+    "dueInHours": 168,
+    "description": "College shortlisting round on 22 September. The venue changed this morning.",
+    "actionLink": null,
+    "contact": "Professor (SIH Faculty Coordinator)",
+    "submission": "Form a team of 6 with at least one female member and shortlist problem statements",
+    "rank": 4,
+    "confidence": "stated",
+    "uncertainty": "No start time has ever been given, only the date.",
+    "issue": "The SIH portal still shows old problem statements and a different team size. The faculty coordinator says to proceed on verbal information and that the website will catch up.",
+    "deadlineText": "internal hackathon date is 22nd, as announced in class",
+    "consequence": null,
+    "location": "Anveshan Foundation (moved from IT 209)",
+    "clashNote": "Three things land on 22 September: this, the Neutron orientation (12-3 PM) and the University-Wide Hackathon registration deadline. No start time is given for this one, so an overlap with Neutron cannot be ruled out.",
+    "history": [
+      {
+        "at": "2026-09-10T19:00",
+        "what": "Team size confirmed as 6, minimum 1 female. Internal hackathon date announced as the 22nd - 'this is final'."
+      },
+      {
+        "at": "2026-09-15T08:34",
+        "what": "Venue shifted from IT 209 to Anveshan Foundation. Schedule is 2 days."
+      }
+    ],
+    "sources": [
+      {
+        "id": "msg_036",
+        "channel": "Class Group (BTech CSE-AI)",
+        "sender": "Professor (SIH Faculty Coordinator)",
+        "sentAt": "2026-09-10T19:00",
+        "excerpt": "internal hackathon date is 22nd, as announced in class. Kindly stop circulating unconfirmed dates."
+      },
+      {
+        "id": "msg_033",
+        "channel": "BTech ECE-AI Class Group",
+        "sender": "Professor",
+        "sentAt": "2026-09-15T08:34",
+        "excerpt": "Venue for SIH shifted from IT 209 to Anveshan Foundation. The schedule is for 2 days."
+      }
+    ],
+    "sourceCount": 2
+  },
+  {
+    "id": "d5",
+    "title": "Semester registration",
+    "tag": "Class Group (CS-AI)",
+    "dueInHours": null,
+    "description": "Two different closing dates were circulated and neither came from an official source. Worth checking.",
+    "actionLink": null,
+    "contact": "Multiple Students",
+    "submission": "Verify your registration status with the department",
+    "rank": 5,
+    "confidence": "missing",
+    "uncertainty": "Neither date is from an official source - both are students in a group chat.",
+    "issue": "Two conflicting dates in one thread. One student says the portal says 30 September; another says the deadline was 'tomorrow', which would have been 4 September. Both cannot be right.",
+    "deadlineText": "tomorrow is the last date for sem registration / I know the site says 30 Sept",
+    "consequence": null,
+    "location": null,
+    "clashNote": null,
+    "history": null,
+    "sources": [
+      {
+        "id": "msg_022",
+        "channel": "Class Group (CS-AI)",
+        "sender": "Multiple Students",
+        "sentAt": "2026-09-03T21:14",
+        "excerpt": "tomorrow is the last date for sem registration ... I know the site says 30 Sept"
+      }
+    ],
+    "sourceCount": 1
+  }
+]

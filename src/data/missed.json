@@ -1,0 +1,162 @@
+[
+  {
+    "id": "m1",
+    "title": "Team Synergy recruitment",
+    "tag": "Freshers Party Group",
+    "description": "Recruitment closed on 10 September - three days before this was forwarded.",
+    "deadlineText": "Deadline: 10 SEPTEMBER 2026",
+    "confidence": "stated",
+    "uncertainty": null,
+    "issue": "The deadline had already passed when the message was sent. It still says 'apply before it closes'.",
+    "sources": [
+      {
+        "id": "msg_018",
+        "channel": "Freshers Party Group",
+        "sender": "Society Account",
+        "sentAt": "2026-09-13T17:00",
+        "excerpt": "Deadline: 10 SEPTEMBER 2026 ... Don't miss out-apply before it closes!"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "m2",
+    "title": "FINIVESTA applications",
+    "tag": "Class Group (CS-AI)",
+    "description": "Applications closed on 13 September.",
+    "deadlineText": "TODAY is the LAST DAY to apply",
+    "confidence": "inferred",
+    "uncertainty": "'TODAY' resolved from the send date, 13 September.",
+    "issue": null,
+    "sources": [
+      {
+        "id": "msg_010",
+        "channel": "Class Group (CS-AI)",
+        "sender": "Society Account",
+        "sentAt": "2026-09-13T12:00",
+        "excerpt": "THIS IS YOUR FINAL CALL! TODAY is the LAST DAY to apply"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "m3",
+    "title": "Hostel allotment corrections",
+    "tag": "BTech CSE-AI 1st Year Group",
+    "description": "If your name was missing from the hostel list, corrections closed on 29 August at 10 AM.",
+    "deadlineText": "Deadline tomorrow 10 AM",
+    "confidence": "inferred",
+    "uncertainty": "'Tomorrow' resolved from the send date, 28 August.",
+    "issue": "The coordinator asked for replies in DM, but students kept replying in the group, so several corrections may never have been collected.",
+    "sources": [
+      {
+        "id": "msg_035",
+        "channel": "BTech CSE-AI 1st Year Group",
+        "sender": "Professor (CR Coordinator)",
+        "sentAt": "2026-08-28T20:00",
+        "excerpt": "Hostel allotment list ... If your name is NOT there, please reply ... Deadline tomorrow 10 AM"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "m4",
+    "title": "Vice Chancellor Internship Scheme",
+    "tag": "Class Group (CS-AI)",
+    "description": "Applications closed around 31 August.",
+    "deadlineText": "submit their application by Monday",
+    "confidence": "inferred",
+    "uncertainty": "Says 'Monday' with no date. Sent Thursday 27 August, so most likely Monday 31 August - never stated.",
+    "issue": null,
+    "sources": [
+      {
+        "id": "msg_021",
+        "channel": "Class Group (CS-AI)",
+        "sender": "Class Rep",
+        "sentAt": "2026-08-27T18:02",
+        "excerpt": "submit their application by Monday. Applications submitted after Monday will NOT be accepted"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "m5",
+    "title": "MSc Society interviews",
+    "tag": "Interview/Society Applicants Group",
+    "description": "Postponed on 10 September. A new date has still not been announced.",
+    "deadlineText": "today's interviews have been postponed. New date will be shared soon",
+    "confidence": "stated",
+    "uncertainty": "No new date has been given in the five days since.",
+    "issue": "The postponement was posted at 8:45 AM in a different group that these applicants were never added to. They waited outside from 9:15.",
+    "sources": [
+      {
+        "id": "msg_045",
+        "channel": "Interview/Society Applicants Group",
+        "sender": "Multiple Students",
+        "sentAt": "2026-09-10T09:30",
+        "excerpt": "update MSc Society ke alag group mein aaya hai, hum jo iss group mein hain unko toh add hi nahi kiya gaya"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "m6",
+    "title": "Technique Society interview",
+    "tag": "Techneeds Club Unofficial Group",
+    "description": "Rained off on Wednesday, moved to Friday 11 September. Now past.",
+    "deadlineText": "New date: Friday, 11:00 AM, same venue",
+    "confidence": "stated",
+    "uncertainty": null,
+    "issue": null,
+    "sources": [
+      {
+        "id": "msg_046",
+        "channel": "Techneeds Club Unofficial Group",
+        "sender": "Multiple Students",
+        "sentAt": "2026-09-09T11:00",
+        "excerpt": "Due to heavy rainfall, today's interviews stand cancelled ... New date: Friday, 11:00 AM, same venue"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "m7",
+    "title": "Python assignment",
+    "tag": "Multiple Groups (forwarded)",
+    "description": "Was due on a Friday that was never specified. Both candidate Fridays have passed.",
+    "deadlineText": "Friday tak",
+    "confidence": "missing",
+    "uncertainty": "The professor said 'Friday' in class with no date and no time. From a 3 September message that could mean 4 September or 11 September. The portal showed no deadline at all.",
+    "issue": null,
+    "sources": [
+      {
+        "id": "msg_047",
+        "channel": "Multiple Groups (forwarded)",
+        "sender": "Multiple Students",
+        "sentAt": "2026-09-03T20:00",
+        "excerpt": "Python assignment 'Friday tak' submit karna hai ... ye Friday konsa hai - kal wala ya agle hafte wala?"
+      }
+    ],
+    "sourceCount": 1
+  },
+  {
+    "id": "m8",
+    "title": "Minerva orientation",
+    "tag": "Minerva Official Club Group",
+    "description": "Happened on 7 September after a last-minute time change.",
+    "deadlineText": "it will happen at 1.20pm!!",
+    "confidence": "inferred",
+    "uncertainty": "Announced as a timing change but the original time was never stated, so what changed is unknowable. The venue was disputed throughout.",
+    "issue": null,
+    "sources": [
+      {
+        "id": "msg_029",
+        "channel": "Minerva Official Club Group",
+        "sender": "Outreach Core",
+        "sentAt": "2026-09-07T13:03",
+        "excerpt": "There has been a small change in the timing..."
+      }
+    ],
+    "sourceCount": 1
+  }
+]

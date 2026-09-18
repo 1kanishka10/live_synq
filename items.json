@@ -1,0 +1,910 @@
+{
+  "generated_at": "2026-09-15T09:00:00+05:30",
+  "student": {
+    "name": "Aanya R.",
+    "year": 1,
+    "branch": "CS-AI",
+    "section": "A",
+    "hostel": false,
+    "societies": [
+      "AssetMerkle"
+    ]
+  },
+  "stats": {
+    "messages_in": 50,
+    "threads": 5,
+    "duplicates_collapsed": 8,
+    "noise_dropped": 22,
+    "now": 5,
+    "discover": 7,
+    "missed": 8,
+    "items_total": 20
+  },
+  "items": [
+    {
+      "id": "robotics",
+      "lane": "now",
+      "rank": 1,
+      "type": "event",
+      "title": "IIT Bombay robotics workshop",
+      "plain": "Free 3-hour robotics workshop with an IIT Bombay certificate. Registration closes today.",
+      "action": "Fill the IGDTUW student registration form",
+      "deadline": "2026-09-15T23:59:00+05:30",
+      "deadline_text": "Register by 15 September",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": null,
+      "consequence": "Registration is mandatory. Entry will be allowed only to registered participants.",
+      "location": "IGDTUW Auditorium",
+      "event_date": "2026-09-18",
+      "link": "forms.gle/p6Us6AtEgFQ67xJR8",
+      "seats_limited": null,
+      "hours_left": 15,
+      "urgency": 8.0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_013",
+          "channel": "ASME Society Group",
+          "sender": "Society Account",
+          "sent_at": "2026-09-10T10:00",
+          "excerpt": "IIT Bombay Techfest x IGDTUW-ASME, 3-hour Robotics Workshop, 18 September"
+        },
+        {
+          "id": "msg_014",
+          "channel": "Class Group (CS-AI)",
+          "sender": "Class Rep",
+          "sent_at": "2026-09-10T18:30",
+          "excerpt": "(forwarded, identical)"
+        },
+        {
+          "id": "msg_015",
+          "channel": "GDG IGDTUW Society Group",
+          "sender": "Society Account",
+          "sent_at": "2026-09-11T09:15",
+          "excerpt": "(forwarded, identical)"
+        },
+        {
+          "id": "msg_016",
+          "channel": "Class Group (CS-AI)",
+          "sender": "Class Rep",
+          "sent_at": "2026-09-12T11:00",
+          "excerpt": "(forwarded, identical)"
+        },
+        {
+          "id": "msg_017",
+          "channel": "ASME Society Group",
+          "sender": "Society Account",
+          "sent_at": "2026-09-13T20:00",
+          "excerpt": "(forwarded, identical)"
+        }
+      ]
+    },
+    {
+      "id": "assignment",
+      "lane": "now",
+      "rank": 2,
+      "type": "deadline",
+      "title": "Assignment hardcopy submission",
+      "plain": "Write the assignment on paper and hand in a hardcopy. Due this week, but the exact day was never given.",
+      "action": "Confirm the day and format with the teacher, then submit",
+      "deadline": null,
+      "deadline_text": "submit the hardcopy till next week",
+      "confidence": "missing",
+      "uncertainty": "'Next week' was said on Friday 11 September, so most likely the week of 15 September - but no date was stated. Students also disagree on the format: file pages, or A4 stapled, or a file cover.",
+      "issue": null,
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": null,
+      "urgency": 7.5,
+      "audience": {
+        "years": [
+          1
+        ],
+        "branches": [
+          "CS-AI"
+        ]
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_005",
+          "channel": "Class Group (CS-AI)",
+          "sender": "Multiple Students",
+          "sent_at": "2026-09-11T21:43",
+          "excerpt": "Perform assignment on pages and submit the hardcopy till next week... practical on any coding app"
+        }
+      ]
+    },
+    {
+      "id": "gdg",
+      "lane": "now",
+      "rank": 3,
+      "type": "deadline",
+      "title": "GDG IGDTUW recruitment",
+      "plain": "Applications for Tech Circle Managers, Mentors and Core Team. Two days left.",
+      "action": "Fill the GDG recruitment form",
+      "deadline": "2026-09-17T23:59:00+05:30",
+      "deadline_text": "Deadline : 17th September 2026, 11:59 PM",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": null,
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": "forms.gle/YHdWK6mT5CWbiEnB8",
+      "seats_limited": null,
+      "hours_left": 63,
+      "urgency": 6.0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_012",
+          "channel": "GDG IGDTUW Society Group",
+          "sender": "Society Account",
+          "sent_at": "2026-09-13T14:00",
+          "excerpt": "Recruitment Form. Deadline : 17th September 2026, 11:59 PM"
+        }
+      ]
+    },
+    {
+      "id": "sih_internal",
+      "lane": "now",
+      "rank": 4,
+      "type": "update",
+      "title": "SIH internal hackathon",
+      "plain": "College shortlisting round on 22 September. The venue changed this morning.",
+      "action": "Form a team of 6 with at least one female member and shortlist problem statements",
+      "deadline": "2026-09-22T09:00:00+05:30",
+      "deadline_text": "internal hackathon date is 22nd, as announced in class",
+      "confidence": "stated",
+      "uncertainty": "No start time has ever been given, only the date.",
+      "issue": "The SIH portal still shows old problem statements and a different team size. The faculty coordinator says to proceed on verbal information and that the website will catch up.",
+      "consequence": null,
+      "location": "Anveshan Foundation (moved from IT 209)",
+      "event_date": "2026-09-22",
+      "link": null,
+      "seats_limited": null,
+      "hours_left": 168,
+      "urgency": 5.5,
+      "audience": {
+        "years": null,
+        "branches": [
+          "CSE-AI",
+          "ECE-AI"
+        ]
+      },
+      "clash_with": [
+        "neutron",
+        "univ_hackathon"
+      ],
+      "clash_note": "Three things land on 22 September: this, the Neutron orientation (12-3 PM) and the University-Wide Hackathon registration deadline. No start time is given for this one, so an overlap with Neutron cannot be ruled out.",
+      "supersedes": [
+        "msg_036"
+      ],
+      "history": [
+        {
+          "at": "2026-09-10T19:00",
+          "what": "Team size confirmed as 6, minimum 1 female. Internal hackathon date announced as the 22nd - 'this is final'."
+        },
+        {
+          "at": "2026-09-15T08:34",
+          "what": "Venue shifted from IT 209 to Anveshan Foundation. Schedule is 2 days."
+        }
+      ],
+      "sources": [
+        {
+          "id": "msg_036",
+          "channel": "Class Group (BTech CSE-AI)",
+          "sender": "Professor (SIH Faculty Coordinator)",
+          "sent_at": "2026-09-10T19:00",
+          "excerpt": "internal hackathon date is 22nd, as announced in class. Kindly stop circulating unconfirmed dates."
+        },
+        {
+          "id": "msg_033",
+          "channel": "BTech ECE-AI Class Group",
+          "sender": "Professor",
+          "sent_at": "2026-09-15T08:34",
+          "excerpt": "Venue for SIH shifted from IT 209 to Anveshan Foundation. The schedule is for 2 days."
+        }
+      ]
+    },
+    {
+      "id": "sem_reg",
+      "lane": "now",
+      "rank": 5,
+      "type": "deadline",
+      "title": "Semester registration",
+      "plain": "Two different closing dates were circulated and neither came from an official source. Worth checking.",
+      "action": "Verify your registration status with the department",
+      "deadline": null,
+      "deadline_text": "tomorrow is the last date for sem registration / I know the site says 30 Sept",
+      "confidence": "missing",
+      "uncertainty": "Neither date is from an official source - both are students in a group chat.",
+      "issue": "Two conflicting dates in one thread. One student says the portal says 30 September; another says the deadline was 'tomorrow', which would have been 4 September. Both cannot be right.",
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": null,
+      "urgency": 5.0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_022",
+          "channel": "Class Group (CS-AI)",
+          "sender": "Multiple Students",
+          "sent_at": "2026-09-03T21:14",
+          "excerpt": "tomorrow is the last date for sem registration ... I know the site says 30 Sept"
+        }
+      ]
+    },
+    {
+      "id": "scholarship",
+      "lane": "discover",
+      "rank": 1,
+      "type": "opportunity",
+      "title": "Merit-cum-Means Scholarship",
+      "plain": "Applications open for first-years. Documents go to the Scholarship Office by 25 September.",
+      "action": "Submit income certificate, academic records and Aadhar to Room 104, Admin Block",
+      "deadline": "2026-09-25T16:00:00+05:30",
+      "deadline_text": "by 25th September 2026",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": null,
+      "consequence": "Incomplete applications will not be entertained",
+      "location": "Scholarship Office, Room 104, Admin Block",
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": 247,
+      "urgency": 3.6,
+      "audience": {
+        "years": [
+          1
+        ],
+        "branches": null
+      },
+      "clash_with": [],
+      "why_here": "Posted 28 days ago in Official Notices Group - a channel nobody scrolls back through.",
+      "sources": [
+        {
+          "id": "msg_040",
+          "channel": "Official Notices Group",
+          "sender": "Scholarship Office",
+          "sent_at": "2026-08-18T14:00",
+          "excerpt": "applications for the Merit-cum-Means Scholarship are now open ... by 25th September 2026"
+        }
+      ]
+    },
+    {
+      "id": "tarang",
+      "lane": "discover",
+      "rank": 2,
+      "type": "event",
+      "title": "Tarang fest auditions",
+      "plain": "Auditions for Dance, Music, Drama, Fine Arts and Literary, 20-23 September in the Main Auditorium.",
+      "action": "Register on the society Instagram pages, or report to the venue with your college ID",
+      "deadline": "2026-09-20T09:00:00+05:30",
+      "deadline_text": "from 20th-23rd September 2026",
+      "confidence": "stated",
+      "uncertainty": "Category-wise timings are only on the Auditorium notice board, not in the message.",
+      "issue": "This notice was posted on 25 August. Two days later, freshers in another group were still asking when the auditions were, whether there was a form, and which categories existed - none of them had seen it.",
+      "consequence": null,
+      "location": "Main Auditorium",
+      "event_date": "2026-09-20",
+      "link": null,
+      "seats_limited": null,
+      "hours_left": 120,
+      "urgency": 2.4,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "why_here": "The answer existed two days before anyone started looking for it - in a channel they were not reading.",
+      "sources": [
+        {
+          "id": "msg_041",
+          "channel": "Official Notices Group",
+          "sender": "Cultural Committee, Tarang Fest",
+          "sent_at": "2026-08-25T14:00",
+          "excerpt": "Auditions for various societies ... 20th-23rd September 2026 in the Main Auditorium"
+        },
+        {
+          "id": "msg_039",
+          "channel": "General Freshers/Batch Group",
+          "sender": "Multiple Students",
+          "sent_at": "2026-08-27T14:00",
+          "excerpt": "Tarang ke auditions ke baare mein kisi ko kuch pata hai? koi exact date nahi mili abhi tak"
+        }
+      ]
+    },
+    {
+      "id": "univ_hackathon",
+      "lane": "discover",
+      "rank": 3,
+      "type": "deadline",
+      "title": "University-Wide Hackathon registration",
+      "plain": "Teams of 4 to 6 must register on the college portal by 22 September. Event is 28-29 September.",
+      "action": "Register your team on the official college portal",
+      "deadline": "2026-09-22T23:59:00+05:30",
+      "deadline_text": "by 22nd September 2026",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": "Team size here is 4-6. The SIH faculty coordinator separately said 6 with at least one female member. It is not clear from these messages whether these are the same competition.",
+      "consequence": null,
+      "location": null,
+      "event_date": "2026-09-28",
+      "link": null,
+      "seats_limited": null,
+      "hours_left": 183,
+      "urgency": 4.0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [
+        "sih_internal"
+      ],
+      "why_here": "Posted once in Official Notices Group, thirteen days ago.",
+      "sources": [
+        {
+          "id": "msg_042",
+          "channel": "Official Notices Group",
+          "sender": "SIH/Hackathon Faculty Coordinator",
+          "sent_at": "2026-09-02T14:00",
+          "excerpt": "University-Wide Hackathon ... 28th-29th September 2026. Team registration ... by 22nd September 2026"
+        }
+      ]
+    },
+    {
+      "id": "bookbank",
+      "lane": "discover",
+      "rank": 4,
+      "type": "deadline",
+      "title": "Library Book Bank scheme",
+      "plain": "Free textbook lending for the semester. Form and a photo to the Library Counter by 24 September.",
+      "action": "Submit the Book Bank form with one photograph at the Library Counter",
+      "deadline": "2026-09-24T23:59:00+05:30",
+      "deadline_text": "by 24th September 2026",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": null,
+      "consequence": "Books issued first-come-first-serve, subject to availability. Fines apply if not returned by end of semester.",
+      "location": "Library Counter",
+      "event_date": null,
+      "link": null,
+      "seats_limited": true,
+      "hours_left": 207,
+      "urgency": 3.0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "why_here": "Free textbooks, announced once, in a notices group.",
+      "sources": [
+        {
+          "id": "msg_044",
+          "channel": "Official Notices Group",
+          "sender": "Central Library",
+          "sent_at": "2026-09-09T14:00",
+          "excerpt": "Book Bank Scheme (free textbook lending for the semester) ... by 24th September 2026"
+        }
+      ]
+    },
+    {
+      "id": "neutron",
+      "lane": "discover",
+      "rank": 5,
+      "type": "event",
+      "title": "Neutron game dev orientation",
+      "plain": "Game Development Club orientation with an industry speaker, 22 September, 12-3 PM.",
+      "action": "Join the Neutron WhatsApp group and attend",
+      "deadline": "2026-09-22T12:00:00+05:30",
+      "deadline_text": "22nd September, 12 PM - 3 PM",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": null,
+      "consequence": null,
+      "location": "Seminar Hall, IGDTUW",
+      "event_date": "2026-09-22",
+      "link": null,
+      "seats_limited": null,
+      "hours_left": 171,
+      "urgency": 1.6,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [
+        "sih_internal"
+      ],
+      "why_here": "Announced twice in two different society groups, in completely different words.",
+      "sources": [
+        {
+          "id": "msg_032",
+          "channel": "Neutron Gaming Society",
+          "sender": "Society Account",
+          "sent_at": "2026-09-08T13:03",
+          "excerpt": "NEUTRON - Game Development Club, IGDTUW is here with it's ORIENTATION! 22 September, 12 PM onwards"
+        },
+        {
+          "id": "msg_031",
+          "channel": "Neutron Official Club Group",
+          "sender": "Society Account",
+          "sent_at": "2026-09-09T13:03",
+          "excerpt": "NEUTRON ORIENTATION - Game Development Club. DATE: 22nd September. TIME: 12 PM - 3 PM. VENUE: Seminar Hall"
+        }
+      ]
+    },
+    {
+      "id": "thingqbator",
+      "lane": "discover",
+      "rank": 6,
+      "type": "opportunity",
+      "title": "thingQbator Innovation Mela",
+      "plain": "Two-day idea competition on campus. Rs 10,000 for the winning team.",
+      "action": "Register and submit an idea",
+      "deadline": "2026-09-28T09:00:00+05:30",
+      "deadline_text": "Day 1 (28 Sep) - Registration & Mentorship",
+      "confidence": "stated",
+      "uncertainty": "No separate registration cut-off is given; registration appears to be on the day.",
+      "issue": null,
+      "consequence": null,
+      "location": "IGDTUW Auditorium",
+      "event_date": "2026-09-28",
+      "link": null,
+      "seats_limited": null,
+      "hours_left": 312,
+      "urgency": 2.0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "why_here": "Shared once in an unofficial help group.",
+      "sources": [
+        {
+          "id": "msg_002",
+          "channel": "Fresher Help Group (Unofficial)",
+          "sender": "Senior (Group Admin)",
+          "sent_at": "2026-09-11T12:00",
+          "excerpt": "thingQbator Innovation Mela 2026, 28th-29th September. Prizes for Top 3 Teams"
+        }
+      ]
+    },
+    {
+      "id": "idcard",
+      "lane": "discover",
+      "rank": 7,
+      "type": "deadline",
+      "title": "Student ID card collection",
+      "plain": "If you have not collected your ID card, the Admin Office issues them 9 AM to 1 PM, weekdays.",
+      "action": "Visit the Admin Office with your admission slip and one passport photo",
+      "deadline": null,
+      "deadline_text": null,
+      "confidence": "missing",
+      "uncertainty": "No closing date is given - just office hours.",
+      "issue": null,
+      "consequence": "ID cards are mandatory for hostel entry, library access, and examination hall entry",
+      "location": "Admin Office, Ground Floor",
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": null,
+      "urgency": 2.8,
+      "audience": {
+        "years": [
+          1
+        ],
+        "branches": null
+      },
+      "clash_with": [],
+      "why_here": "Needed for exam-hall entry, and there is no deadline attached to make it feel urgent.",
+      "sources": [
+        {
+          "id": "msg_043",
+          "channel": "Official Notices Group",
+          "sender": "Admin Office",
+          "sent_at": "2026-09-04T14:00",
+          "excerpt": "first-year students who have not yet collected their college ID cards ... 9 AM - 1 PM, Monday to Friday"
+        },
+        {
+          "id": "msg_049",
+          "channel": "Class Updates (Official Group)",
+          "sender": "CR (Class Representative)",
+          "sent_at": "2026-09-11T13:04",
+          "excerpt": "[Forwarded] ID Card Application Form - Everyone please fill this form for id card"
+        }
+      ]
+    },
+    {
+      "id": "synergy",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "Team Synergy recruitment",
+      "plain": "Recruitment closed on 10 September - three days before this was forwarded.",
+      "action": null,
+      "deadline": "2026-09-10T23:59:00+05:30",
+      "deadline_text": "Deadline: 10 SEPTEMBER 2026",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": "The deadline had already passed when the message was sent. It still says 'apply before it closes'.",
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": -129,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_018",
+          "channel": "Freshers Party Group",
+          "sender": "Society Account",
+          "sent_at": "2026-09-13T17:00",
+          "excerpt": "Deadline: 10 SEPTEMBER 2026 ... Don't miss out-apply before it closes!"
+        }
+      ]
+    },
+    {
+      "id": "finivesta",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "FINIVESTA applications",
+      "plain": "Applications closed on 13 September.",
+      "action": null,
+      "deadline": "2026-09-13T23:59:00+05:30",
+      "deadline_text": "TODAY is the LAST DAY to apply",
+      "confidence": "inferred",
+      "uncertainty": "'TODAY' resolved from the send date, 13 September.",
+      "issue": null,
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": -33,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_010",
+          "channel": "Class Group (CS-AI)",
+          "sender": "Society Account",
+          "sent_at": "2026-09-13T12:00",
+          "excerpt": "THIS IS YOUR FINAL CALL! TODAY is the LAST DAY to apply"
+        }
+      ]
+    },
+    {
+      "id": "hostel",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "Hostel allotment corrections",
+      "plain": "If your name was missing from the hostel list, corrections closed on 29 August at 10 AM.",
+      "action": null,
+      "deadline": "2026-08-29T10:00:00+05:30",
+      "deadline_text": "Deadline tomorrow 10 AM",
+      "confidence": "inferred",
+      "uncertainty": "'Tomorrow' resolved from the send date, 28 August.",
+      "issue": "The coordinator asked for replies in DM, but students kept replying in the group, so several corrections may never have been collected.",
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": -407,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_035",
+          "channel": "BTech CSE-AI 1st Year Group",
+          "sender": "Professor (CR Coordinator)",
+          "sent_at": "2026-08-28T20:00",
+          "excerpt": "Hostel allotment list ... If your name is NOT there, please reply ... Deadline tomorrow 10 AM"
+        }
+      ]
+    },
+    {
+      "id": "vcis",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "Vice Chancellor Internship Scheme",
+      "plain": "Applications closed around 31 August.",
+      "action": null,
+      "deadline": null,
+      "deadline_text": "submit their application by Monday",
+      "confidence": "inferred",
+      "uncertainty": "Says 'Monday' with no date. Sent Thursday 27 August, so most likely Monday 31 August - never stated.",
+      "issue": null,
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": -369,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_021",
+          "channel": "Class Group (CS-AI)",
+          "sender": "Class Rep",
+          "sent_at": "2026-08-27T18:02",
+          "excerpt": "submit their application by Monday. Applications submitted after Monday will NOT be accepted"
+        }
+      ]
+    },
+    {
+      "id": "msc_interviews",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "MSc Society interviews",
+      "plain": "Postponed on 10 September. A new date has still not been announced.",
+      "action": null,
+      "deadline": null,
+      "deadline_text": "today's interviews have been postponed. New date will be shared soon",
+      "confidence": "stated",
+      "uncertainty": "No new date has been given in the five days since.",
+      "issue": "The postponement was posted at 8:45 AM in a different group that these applicants were never added to. They waited outside from 9:15.",
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": null,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_045",
+          "channel": "Interview/Society Applicants Group",
+          "sender": "Multiple Students",
+          "sent_at": "2026-09-10T09:30",
+          "excerpt": "update MSc Society ke alag group mein aaya hai, hum jo iss group mein hain unko toh add hi nahi kiya gaya"
+        }
+      ]
+    },
+    {
+      "id": "technique",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "Technique Society interview",
+      "plain": "Rained off on Wednesday, moved to Friday 11 September. Now past.",
+      "action": null,
+      "deadline": "2026-09-11T11:00:00+05:30",
+      "deadline_text": "New date: Friday, 11:00 AM, same venue",
+      "confidence": "stated",
+      "uncertainty": null,
+      "issue": null,
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": -94,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_046",
+          "channel": "Techneeds Club Unofficial Group",
+          "sender": "Multiple Students",
+          "sent_at": "2026-09-09T11:00",
+          "excerpt": "Due to heavy rainfall, today's interviews stand cancelled ... New date: Friday, 11:00 AM, same venue"
+        }
+      ]
+    },
+    {
+      "id": "python_assign",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "Python assignment",
+      "plain": "Was due on a Friday that was never specified. Both candidate Fridays have passed.",
+      "action": null,
+      "deadline": null,
+      "deadline_text": "Friday tak",
+      "confidence": "missing",
+      "uncertainty": "The professor said 'Friday' in class with no date and no time. From a 3 September message that could mean 4 September or 11 September. The portal showed no deadline at all.",
+      "issue": null,
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": null,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_047",
+          "channel": "Multiple Groups (forwarded)",
+          "sender": "Multiple Students",
+          "sent_at": "2026-09-03T20:00",
+          "excerpt": "Python assignment 'Friday tak' submit karna hai ... ye Friday konsa hai - kal wala ya agle hafte wala?"
+        }
+      ]
+    },
+    {
+      "id": "minerva",
+      "lane": "missed",
+      "rank": null,
+      "type": "deadline",
+      "title": "Minerva orientation",
+      "plain": "Happened on 7 September after a last-minute time change.",
+      "action": null,
+      "deadline": "2026-09-07T13:20:00+05:30",
+      "deadline_text": "it will happen at 1.20pm!!",
+      "confidence": "inferred",
+      "uncertainty": "Announced as a timing change but the original time was never stated, so what changed is unknowable. The venue was disputed throughout.",
+      "issue": null,
+      "consequence": null,
+      "location": null,
+      "event_date": null,
+      "link": null,
+      "seats_limited": null,
+      "hours_left": -188,
+      "urgency": 0,
+      "audience": {
+        "years": null,
+        "branches": null
+      },
+      "clash_with": [],
+      "sources": [
+        {
+          "id": "msg_029",
+          "channel": "Minerva Official Club Group",
+          "sender": "Outreach Core",
+          "sent_at": "2026-09-07T13:03",
+          "excerpt": "There has been a small change in the timing..."
+        }
+      ]
+    }
+  ],
+  "noise": [
+    {
+      "id": "msg_003",
+      "why": "Students guessing at each other about a classroom. LH1, LH5, IT 405 and ECE 308 all proposed."
+    },
+    {
+      "id": "msg_004",
+      "why": "A question about interview order with no answer in the thread."
+    },
+    {
+      "id": "msg_006",
+      "why": "Unverified student report about where the syllabus lives."
+    },
+    {
+      "id": "msg_007",
+      "why": "Lecture hall locked. Live chatter from 8 September."
+    },
+    {
+      "id": "msg_008",
+      "why": "Room dispute during a class, with a threat to mark everyone absent. Now past."
+    },
+    {
+      "id": "msg_023",
+      "why": "Holiday speculation the students themselves say needs confirming with teachers."
+    },
+    {
+      "id": "msg_024",
+      "why": "Class reported cancelled, contradicted inside the same thread, no faculty confirmation."
+    },
+    {
+      "id": "msg_025",
+      "why": "Forwarded 'attendance is mandatory' message nobody can trace to a source, in a college with no attendance system."
+    },
+    {
+      "id": "msg_026",
+      "why": "Questions about which lab to attend, never answered."
+    },
+    {
+      "id": "msg_027",
+      "why": "A question to seniors about joining ASME, no reply."
+    },
+    {
+      "id": "msg_028",
+      "why": "Asking when SIH results arrive. No answer."
+    },
+    {
+      "id": "msg_030",
+      "why": "Append your name if you did not receive a pass. No deadline, no event named."
+    },
+    {
+      "id": "msg_034",
+      "why": "Interview applicants appending names to a list. Administrative, not an announcement."
+    },
+    {
+      "id": "msg_037",
+      "why": "Two freshers report a Dance Society audition clashing with a Coding Club orientation, both 4 PM. Neither coordinator was told, and the date has passed."
+    },
+    {
+      "id": "msg_038",
+      "why": "A workshop may be cancelled because of BRICS Summit restrictions in Delhi, or the college may have declared a holiday. No official notice ever came."
+    },
+    {
+      "id": "msg_048",
+      "why": "Communication Skills class moved from 10 AM to 2 PM. The professor told two students in a corridor; the group was never messaged."
+    },
+    {
+      "id": "msg_050",
+      "why": "Pandora Society poll on which month to run a trip. No date, no action."
+    },
+    {
+      "id": "msg_001",
+      "why": "B.H.A.V. orientation with date and time explicitly 'TO BE ANNOUNCED'."
+    },
+    {
+      "id": "msg_009",
+      "why": "Says the orientation date is live on Instagram but never states it. Venue not announced."
+    },
+    {
+      "id": "msg_011",
+      "why": "LEAN IN community invitation. Mentions orientation, recruitment and a hackathon with no date for any."
+    },
+    {
+      "id": "msg_019",
+      "why": "SIH team spot posted 29 August, no deadline, almost certainly filled."
+    },
+    {
+      "id": "msg_020",
+      "why": "SIH team hunting, no deadline. Contains a student's real first name - anonymise before publishing."
+    }
+  ]
+}

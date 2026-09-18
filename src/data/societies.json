@@ -1,0 +1,209 @@
+
+  [
+  {
+    "id": "s1",
+    "name": "IGDTUW–ASME",
+    "category": "Tech",
+    "description": "Active in 1 channel. 2 open items in the current feed.",
+    "core": [
+      "Society Account"
+    ],
+    "pastEvents": [],
+    "upcomingEvents": [
+      "IIT Bombay robotics workshop — Register by 15 September",
+      "IIT Bombay robotics workshop — Register by 15 September"
+    ],
+    "channels": [
+      "ASME Society Group"
+    ]
+  },
+  {
+    "id": "s2",
+    "name": "GDG IGDTUW",
+    "category": "Tech",
+    "description": "Active in 1 channel. 2 open items in the current feed.",
+    "core": [
+      "Society Account"
+    ],
+    "pastEvents": [],
+    "upcomingEvents": [
+      "IIT Bombay robotics workshop — Register by 15 September",
+      "GDG IGDTUW recruitment — Deadline : 17th September 2026, 11:59 PM"
+    ],
+    "channels": [
+      "GDG IGDTUW Society Group"
+    ]
+  },
+  {
+    "id": "s3",
+    "name": "Official Notices",
+    "category": "Administration",
+    "description": "Active in 1 channel. 5 open items in the current feed.",
+    "core": [
+      "Admin Office",
+      "SIH/Hackathon Faculty Coordinator",
+      "Cultural Committee, Tarang Fest",
+      "Scholarship Office",
+      "Central Library"
+    ],
+    "pastEvents": [],
+    "upcomingEvents": [
+      "Merit-cum-Means Scholarship — by 25th September 2026",
+      "Tarang fest auditions — from 20th-23rd September 2026",
+      "University-Wide Hackathon registration — by 22nd September 2026",
+      "Library Book Bank scheme — by 24th September 2026",
+      "Student ID card collection — no date given"
+    ],
+    "channels": [
+      "Official Notices Group"
+    ]
+  },
+  {
+    "id": "s4",
+    "name": "Neutron — Game Dev Club",
+    "category": "Tech",
+    "description": "Active in 2 channels. 2 open items in the current feed.",
+    "core": [
+      "Society Account"
+    ],
+    "pastEvents": [],
+    "upcomingEvents": [
+      "Neutron game dev orientation — 22nd September, 12 PM - 3 PM",
+      "Neutron game dev orientation — 22nd September, 12 PM - 3 PM"
+    ],
+    "channels": [
+      "Neutron Gaming Society",
+      "Neutron Official Club Group"
+    ]
+  },
+  {
+    "id": "s5",
+    "name": "Team Synergy",
+    "category": "Cultural",
+    "description": "Active in 1 channel. 0 open items in the current feed.",
+    "core": [
+      "Society Account"
+    ],
+    "pastEvents": [
+      "Team Synergy recruitment — Deadline: 10 SEPTEMBER 2026"
+    ],
+    "upcomingEvents": [],
+    "channels": [
+      "Freshers Party Group"
+    ]
+  },
+  {
+    "id": "s6",
+    "name": "MSc Society",
+    "category": "Academic",
+    "description": "Active in 1 channel. 0 open items in the current feed.",
+    "core": [],
+    "pastEvents": [
+      "MSc Society interviews — today's interviews have been postponed. New date will be shared soon"
+    ],
+    "upcomingEvents": [],
+    "channels": [
+      "Interview/Society Applicants Group"
+    ]
+  },
+  {
+    "id": "s7",
+    "name": "Technique Society",
+    "category": "Tech",
+    "description": "Active in 1 channel. 0 open items in the current feed.",
+    "core": [],
+    "pastEvents": [
+      "Technique Society interview — New date: Friday, 11:00 AM, same venue"
+    ],
+    "upcomingEvents": [],
+    "channels": [
+      "Techneeds Club Unofficial Group"
+    ]
+  },
+  {
+    "id": "s8",
+    "name": "Minerva",
+    "category": "Literary",
+    "description": "Active in 1 channel. 0 open items in the current feed.",
+    "core": [
+      "Outreach Core"
+    ],
+    "pastEvents": [
+      "Minerva orientation — it will happen at 1.20pm!!"
+    ],
+    "upcomingEvents": [],
+    "channels": [
+      "Minerva Official Club Group"
+    ]
+    },
+  {
+    "id": "s9",
+    "name": "B.H.A.V.",
+    "category": "Cultural",
+    "description": "Announced an orientation in the Auditorium. Date and time were explicitly left as TO BE ANNOUNCED.",
+    "core": ["Society Account"],
+    "pastEvents": [],
+    "upcomingEvents": ["Orientation — date and time to be announced"],
+    "channels": ["BHAV Society Group"]
+  },
+  {
+    "id": "s10",
+    "name": "Zena Fashion Club",
+    "category": "Cultural",
+    "description": "Orientation announced, but the date was only posted on Instagram and the venue was never given.",
+    "core": ["Society Account"],
+    "pastEvents": [],
+    "upcomingEvents": ["Orientation — date on Instagram only, venue not announced"],
+    "channels": ["Zena Fashion Club Group"]
+  },
+  {
+    "id": "s11",
+    "name": "FINIVESTA",
+    "category": "Academic",
+    "description": "Recruitment ran and closed on 13 September. Announced as a final call on the closing day itself.",
+    "core": ["Society Account"],
+    "pastEvents": ["Applications closed — 13 September"],
+    "upcomingEvents": [],
+    "channels": ["Class Group (CS-AI)"]
+  },
+  {
+    "id": "s12",
+    "name": "LEAN IN",
+    "category": "Community",
+    "description": "Community invitation for the 2030 batch. Mentions an orientation, recruitment and a hackathon, with no date for any of them.",
+    "core": ["Senior (Group Admin)"],
+    "pastEvents": [],
+    "upcomingEvents": ["Orientation, recruitment and a hackathon — no dates given"],
+    "channels": ["Unofficial WhatsApp Broadcast"]
+  },
+  {
+    "id": "s13",
+    "name": "Pandora Society",
+    "category": "Cultural",
+    "description": "Ran a poll on which month to hold a trip. No date and nothing to act on yet.",
+    "core": ["Society Account"],
+    "pastEvents": [],
+    "upcomingEvents": ["Trip — month being polled"],
+    "channels": ["Pandora Society Group"]
+  },
+  {
+    "id": "s14",
+    "name": "Dance Society",
+    "category": "Cultural",
+    "description": "Held auditions that clashed with a Coding Club orientation at 4 PM. Reported by students; neither coordinator was told.",
+    "core": [],
+    "pastEvents": ["Auditions — clashed with Coding Club orientation, date has passed"],
+    "upcomingEvents": [],
+    "channels": ["Cse Ai Unofficial Group"]
+  },
+  {
+    "id": "s15",
+    "name": "Coding Club",
+    "category": "Tech",
+    "description": "Held an orientation that clashed with Dance Society auditions at 4 PM. Reported by students; neither coordinator was told.",
+    "core": [],
+    "pastEvents": ["Orientation — clashed with Dance Society auditions, date has passed"],
+    "upcomingEvents": [],
+    "channels": ["Cse Ai Unofficial Group"]
+  }
+]

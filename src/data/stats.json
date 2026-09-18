@@ -1,0 +1,106 @@
+{
+  "messages_in": 50,
+  "threads": 5,
+  "duplicates_collapsed": 8,
+  "noise_dropped": 20,
+  "now": 5,
+  "discover": 9,
+  "missed": 8,
+  "items_total": 22,
+  "noiseExamples": [
+    {
+      "id": "msg_003",
+      "why": "Students guessing at each other about a classroom. LH1, LH5, IT 405 and ECE 308 all proposed.",
+      "channel": "Class Official Group"
+    },
+    {
+      "id": "msg_004",
+      "why": "A question about interview order with no answer in the thread.",
+      "channel": "Event Management Interviews Group"
+    },
+    {
+      "id": "msg_006",
+      "why": "Unverified student report about where the syllabus lives.",
+      "channel": "Class Group (CS-AI)"
+    },
+    {
+      "id": "msg_007",
+      "why": "Lecture hall locked. Live chatter from 8 September.",
+      "channel": "Class Group (CS-AI)"
+    },
+    {
+      "id": "msg_008",
+      "why": "Room dispute during a class, with a threat to mark everyone absent. Now past.",
+      "channel": "Class Group (BTech CSE-AI EVS)"
+    },
+    {
+      "id": "msg_023",
+      "why": "Holiday speculation the students themselves say needs confirming with teachers.",
+      "channel": "Class Group (CS-AI)"
+    },
+    {
+      "id": "msg_024",
+      "why": "Class reported cancelled, contradicted inside the same thread, no faculty confirmation.",
+      "channel": "Class Group (CS-AI)"
+    },
+    {
+      "id": "msg_025",
+      "why": "Forwarded 'attendance is mandatory' message nobody can trace to a source, in a college with no attendance system.",
+      "channel": "Cse Ai Unofficial Group"
+    },
+    {
+      "id": "msg_026",
+      "why": "Questions about which lab to attend, never answered.",
+      "channel": "Cse Ai Unofficial Group"
+    },
+    {
+      "id": "msg_027",
+      "why": "A question to seniors about joining ASME, no reply.",
+      "channel": "IGDTUW Connect 2030 Group"
+    },
+    {
+      "id": "msg_028",
+      "why": "Asking when SIH results arrive. No answer.",
+      "channel": "IGDTUW Connect 2030 Group"
+    },
+    {
+      "id": "msg_030",
+      "why": "Append your name if you did not receive a pass. No deadline, no event named."
+    },
+    {
+      "id": "msg_034",
+      "why": "Interview applicants appending names to a list. Administrative, not an announcement."
+    },
+    {
+      "id": "msg_037",
+      "why": "Two freshers report a Dance Society audition clashing with a Coding Club orientation, both 4 PM. Neither coordinator was told, and the date has passed."
+    },
+    {
+      "id": "msg_038",
+      "why": "A workshop may be cancelled because of BRICS Summit restrictions in Delhi, or the college may have declared a holiday. No official notice ever came."
+    },
+    {
+      "id": "msg_048",
+      "why": "Communication Skills class moved from 10 AM to 2 PM. The professor told two students in a corridor; the group was never messaged."
+    },
+    {
+      "id": "msg_050",
+      "why": "Pandora Society poll on which month to run a trip. No date, no action."
+    },
+    {
+      "id": "msg_001",
+      "why": "B.H.A.V. orientation with date and time explicitly 'TO BE ANNOUNCED'.",
+      "channel": "BHAV Society Group"
+    },
+    {
+      "id": "msg_009",
+      "why": "Says the orientation date is live on Instagram but never states it. Venue not announced.",
+      "channel": "Zena Fashion Club Group"
+    },
+    {
+      "id": "msg_011",
+      "why": "LEAN IN community invitation. Mentions orientation, recruitment and a hackathon with no date for any.",
+      "channel": "Unofficial WhatsApp Broadcast"
+    }
+  ]
+}
