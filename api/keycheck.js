@@ -1,4 +1,4 @@
-// TEMPORARY DIAGNOSTIC — delete this file once the key works.
+
 // Reveals nothing about the key's value, only whether it arrived intact.
 export default function handler(req, res) {
   const k = process.env.GEMINI_API_KEY;
