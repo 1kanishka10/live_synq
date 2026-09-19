@@ -1,11 +1,12 @@
 // api/selftest.js
-// Runs one fixed message through extraction so the pipeline can be verified
-// from a browser address bar. Safe to keep — it sends no user data.
+// ?list=1        → what models this key can reach
+// ?model=NAME    → run one extraction against that model
+// Safe to keep. Sends no user data.
 
 import { buildExtractionPrompt } from "../lib/prompt.js";
 
-const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent";
+const BASE = "https://generativelanguage.googleapis.com/v1beta";
+const DEFAULT_MODEL = "gemini-3.6-flash";
 
 const SAMPLE = {
   id: "selftest_1",
@@ -18,7 +19,29 @@ const SAMPLE = {
 
 export default async function handler(req, res) {
   const started = Date.now();
+  const key = process.env.GEMINI_API_KEY;
+
   try {
+    if (req.query.list) {
+      const r = await fetch(`${BASE}/models`, {
+        headers: { "x-goog-api-key": key },
+      });
+      const body = await r.json();
+      return res.status(200).json({
+        ok: r.ok,
+        httpStatus: r.status,
+        models: (body.models || [])
+          .filter((m) => (m.supportedGenerationMethods || []).includes("generateContent"))
+          .map((m) => m.name),
+        embedModels: (body.models || [])
+          .filter((m) => (m.supportedGenerationMethods || []).includes("embedContent"))
+          .map((m) => m.name),
+        ms: Date.now() - started,
+      });
+    }
+
+    const model = req.query.model || DEFAULT_MODEL;
+
     const prompt = buildExtractionPrompt({
       text: SAMPLE.text,
       sender: SAMPLE.sender,
@@ -28,12 +51,9 @@ export default async function handler(req, res) {
       today: new Date().toISOString(),
     });
 
-    const r = await fetch(GEMINI_URL, {
+    const r = await fetch(`${BASE}/models/${model}:generateContent`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": process.env.GEMINI_API_KEY,
-      },
+      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: { responseMimeType: "application/json" },
@@ -45,9 +65,10 @@ export default async function handler(req, res) {
     if (!r.ok) {
       return res.status(200).json({
         ok: false,
+        model,
         stage: "gemini",
         httpStatus: r.status,
-        detail: raw.slice(0, 400),
+        detail: raw.slice(0, 300),
         ms: Date.now() - started,
       });
     }
@@ -57,6 +78,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       ok: true,
+      model,
       ms: Date.now() - started,
       extracted: text ? JSON.parse(text) : null,
     });
@@ -64,7 +86,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       ok: false,
       stage: "handler",
-      detail: String(e.message).slice(0, 400),
+      detail: String(e.message).slice(0, 300),
       ms: Date.now() - started,
     });
   }
