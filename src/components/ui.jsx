@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import clsx from "clsx";
 
@@ -37,7 +38,9 @@ export function Modal({ open, onClose, title, children }) {
   }, [open, onClose]);
 
   if (!open) return null;
-  return (
+  // Portalled for the same reason as the import dialog: any ancestor with a
+  // backdrop-filter or transform would otherwise capture position:fixed.
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-ink/50 backdrop-blur-sm" onClick={onClose} />
       <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-xl2 bg-surface shadow-panel">
@@ -49,7 +52,8 @@ export function Modal({ open, onClose, title, children }) {
         </div>
         <div className="px-5 py-5">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -66,7 +70,7 @@ export function Drawer({ open, onClose, title, accent, children }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  return (
+  return createPortal(
     <div
       className={clsx(
         "fixed inset-0 z-50 transition-opacity",
@@ -91,6 +95,7 @@ export function Drawer({ open, onClose, title, accent, children }) {
           <div className="px-5 py-5">{children}</div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
