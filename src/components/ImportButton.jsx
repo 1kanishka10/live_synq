@@ -13,6 +13,7 @@ const SYSTEM =
   /end-to-end encrypted|<Media omitted>|created group|added you|changed the subject|joined using this group's invite link|deleted this message|security code changed/i;
 
 const CHUNK = 6;      // must stay at or under the endpoint's MAX_CHUNK
+const PARALLEL = 3;   // chunk requests in flight at once
 const MAX_MESSAGES = 200;
 
 const DEFAULT_PROFILE = {
@@ -159,35 +160,51 @@ export function ImportButton() {
     setRateLimited(false);
 
     try {
-      // Stage 1, in chunks — each call stays well inside the function timeout,
-      // and every returned chunk moves the counter.
+      // Stage 1. Each request extracts a whole chunk in ONE model call, and
+      // three requests are in flight at a time. Fifty messages used to mean
+      // fifty model calls made three at a time; it is now nine calls made
+      // three at a time, which is both faster and far below the rate limit.
+      const slices = [];
+      for (let i = 0; i < messages.length; i += CHUNK) {
+        slices.push(messages.slice(i, i + CHUNK));
+      }
+
       const records = [];
       let failedCount = 0;
+      let done = 0;
+      let cursor = 0;
 
-      for (let i = 0; i < messages.length; i += CHUNK) {
-        const slice = messages.slice(i, i + CHUNK);
-        const res = await fetch("/api/extract", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: slice, today }),
-        });
+      async function worker() {
+        while (cursor < slices.length) {
+          const slice = slices[cursor++];
+          const res = await fetch("/api/extract", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: slice, today }),
+          });
 
-        if (!res.ok) {
-          const body = await res.json().catch(() => ({}));
-          throw new Error(body.error || `Extraction failed (${res.status})`);
+          if (!res.ok) {
+            const body = await res.json().catch(() => ({}));
+            throw new Error(body.error || `Extraction failed (${res.status})`);
+          }
+
+          const { records: got, failed } = await res.json();
+          records.push(...got);
+          failedCount += failed?.length ?? 0;
+          // "Unreadable" and "sent too fast" are different problems and
+          // deserve different advice.
+          if ((failed ?? []).some((f) => /RATE_LIMIT|429|quota/i.test(f.error || ""))) {
+            setRateLimited(true);
+          }
+          done += slice.length;
+          setProgress({ done, total: messages.length });
+          setSkipped(failedCount);
         }
-
-        const { records: got, failed } = await res.json();
-        records.push(...got);
-        failedCount += failed?.length ?? 0;
-        // "Unreadable" and "sent too fast" are different problems and deserve
-        // different advice.
-        if ((failed ?? []).some((f) => /RATE_LIMIT|429|quota/i.test(f.error || ""))) {
-          setRateLimited(true);
-        }
-        setProgress({ done: Math.min(i + CHUNK, messages.length), total: messages.length });
-        setSkipped(failedCount);
       }
+
+      await Promise.all(
+        Array.from({ length: Math.min(PARALLEL, slices.length) }, worker)
+      );
 
       if (records.length === 0) {
         throw new Error("Nothing could be extracted from that file.");
