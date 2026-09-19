@@ -93,15 +93,31 @@ export function OpportunitiesSection() {
       {visible.length === 0 ? (
         <div className="py-16 text-center">
           <Bookmark size={22} className="mx-auto mb-3 text-slate" />
-          <p className="text-sm text-slate">
-            Nothing saved yet. Tap the bookmark on any card to keep it here.
-          </p>
-          <button
-            onClick={() => setOnlySaved(false)}
-            className="mt-3 text-xs font-semibold text-ocean hover:underline"
-          >
-            Show all opportunities
-          </button>
+          {onlySaved ? (
+            <>
+              <p className="text-sm text-slate">
+                Nothing saved yet. Tap the bookmark on any card to keep it here.
+              </p>
+              <button
+                onClick={() => setOnlySaved(false)}
+                className="mt-3 text-xs font-semibold text-ocean hover:underline"
+              >
+                Show all opportunities
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="mx-auto max-w-sm text-sm leading-relaxed text-slate">
+                Nothing in this chat was an open opportunity. Everything Synq found had a
+                stated deadline, so it is sitting in Deadlines instead.
+              </p>
+              <p className="mx-auto mt-2 max-w-sm text-xs leading-relaxed text-slate">
+                This screen only fills when a message offers something with no deadline
+                attached — a spot on a team, a call for volunteers. Synq will not invent
+                one to put a card here.
+              </p>
+            </>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
