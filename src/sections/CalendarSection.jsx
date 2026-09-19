@@ -1,13 +1,13 @@
-import React, { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, HelpCircle } from "lucide-react";
+import React, { useEffect, useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight, HelpCircle, AlertTriangle } from "lucide-react";
 import { Card, Badge } from "../components/ui";
-import deadlines from "../data/deadlines.json";
-import opportunities from "../data/opportunities.json";
-
-// Every dueInHours in the data is measured from this moment.
-const SNAPSHOT = new Date(2026, 8, 15, 9, 0);
+import { useData } from "../data/DataContext";
 
 const DOW = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+// The sample corpus's dueInHours values are measured from this moment.
+// An imported chat is ranked against the real clock instead.
+const SAMPLE_SNAPSHOT = new Date(2026, 8, 15, 9, 0);
 
 function fromISO(s) {
   if (!s) return null;
@@ -19,50 +19,6 @@ function fromISO(s) {
 function keyOf(date) {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
-
-const EVENTS = [];
-
-deadlines.forEach((d) => {
-  if (d.dueInHours == null) return;
-  const date = new Date(SNAPSHOT.getTime() + d.dueInHours * 3600 * 1000);
-  EVENTS.push({
-        id: `d-${d.id}`,
-    rawId: d.id,
-    date,
-    kind: "Deadline",
-    tone: "critical",
-    title: d.title,
-    detail: d.description,
-    meta: d.deadlineText,
-    note: d.clashNote,
-    tab: "deadlines",
-  });
-});
-
-opportunities.forEach((o) => {
-  const date = fromISO(o.deadline);
-  if (!date) return;
-  EVENTS.push({
-        id: `o-${o.id}`,
-    rawId: o.id,
-    date,
-    kind: o.category === "Cultural" ? "Event" : "Opportunity",
-    tone: o.category === "Cultural" ? "medium" : "ocean",
-    title: o.title,
-    detail: o.description,
-    meta: o.deadlineText,
-    note: o.whyHere,
-    tab: "opportunities",
-  });
-});
-
-const BY_DAY = EVENTS.reduce((acc, e) => {
-  const k = keyOf(e.date);
-  (acc[k] = acc[k] || []).push(e);
-  return acc;
-}, {});
-
-const UNDATED = deadlines.filter((d) => d.dueInHours == null);
 
 function monthGrid(year, month) {
   const first = new Date(year, month, 1);
@@ -89,19 +45,97 @@ const CHIP = {
 };
 
 export function CalendarSection({ onNavigate }) {
-  const [cursor, setCursor] = useState(new Date(2026, 8, 1));
-  const [selected, setSelected] = useState(keyOf(new Date(2026, 8, 22)));
+  const { deadlines = [], opportunities = [], source } = useData();
+
+  // Memoised so it doesn't become a new object on every render.
+  const snapshot = useMemo(
+    () => (source === "imported" ? new Date() : SAMPLE_SNAPSHOT),
+    [source]
+  );
+
+  // Everything derived from the dataset is built in one pass, so an import
+  // rebuilds the grid, the undated list and the clash panel together.
+  const { events, byDay, undated, flagged } = useMemo(() => {
+    const events = [];
+
+    deadlines.forEach((d) => {
+      if (d.dueInHours == null) return;
+      events.push({
+        id: `d-${d.id}`,
+        rawId: d.id,
+        date: new Date(snapshot.getTime() + d.dueInHours * 3600 * 1000),
+        kind: "Deadline",
+        tone: "critical",
+        title: d.title,
+        detail: d.description,
+        meta: d.deadlineText,
+        note: d.clashNote,
+        tab: "deadlines",
+      });
+    });
+
+    opportunities.forEach((o) => {
+      const date = fromISO(o.deadline);
+      if (!date) return;
+      events.push({
+        id: `o-${o.id}`,
+        rawId: o.id,
+        date,
+        kind: o.category === "Cultural" ? "Event" : "Opportunity",
+        tone: o.category === "Cultural" ? "medium" : "ocean",
+        title: o.title,
+        detail: o.description,
+        meta: o.deadlineText,
+        note: o.whyHere,
+        tab: "opportunities",
+      });
+    });
+
+    const byDay = events.reduce((acc, e) => {
+      const k = keyOf(e.date);
+      (acc[k] = acc[k] || []).push(e);
+      return acc;
+    }, {});
+
+    return {
+      events,
+      byDay,
+      undated: deadlines.filter((d) => d.dueInHours == null),
+      // Absorbed from the old Schedule screen: items the pipeline itself
+      // flagged as colliding with something else.
+      flagged: deadlines.filter((d) => d.clashNote),
+    };
+  }, [deadlines, opportunities, snapshot.getTime()]);
+
+  const firstEvent = useMemo(
+    () => [...events].sort((a, b) => a.date - b.date)[0] ?? null,
+    [events]
+  );
+
+  const [cursor, setCursor] = useState(
+    () => new Date(snapshot.getFullYear(), snapshot.getMonth(), 1)
+  );
+  const [selected, setSelected] = useState(() => keyOf(snapshot));
+
+  // When the dataset changes — an import, or a reset to the sample — jump to
+  // the month that actually has something in it rather than sitting on an
+  // empty September.
+  useEffect(() => {
+    if (!firstEvent) return;
+    setCursor(new Date(firstEvent.date.getFullYear(), firstEvent.date.getMonth(), 1));
+    setSelected(keyOf(firstEvent.date));
+  }, [firstEvent?.id]);
 
   const cells = useMemo(
     () => monthGrid(cursor.getFullYear(), cursor.getMonth()),
     [cursor]
   );
 
-  const dayEvents = BY_DAY[selected] || [];
-  const selectedDate = (() => {
+  const dayEvents = byDay[selected] || [];
+  const selectedDate = useMemo(() => {
     const [y, m, d] = selected.split("-").map(Number);
     return new Date(y, m, d);
-  })();
+  }, [selected]);
 
   const shift = (n) =>
     setCursor(new Date(cursor.getFullYear(), cursor.getMonth() + n, 1));
@@ -116,7 +150,7 @@ export function CalendarSection({ onNavigate }) {
         </p>
       </header>
 
-           <div className="grid gap-4 xl:grid-cols-[1fr_21rem]">
+      <div className="grid gap-4 xl:grid-cols-[1fr_21rem]">
         <Card className="p-4 lg:p-5">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="font-display text-xl font-bold text-ink">
@@ -155,9 +189,9 @@ export function CalendarSection({ onNavigate }) {
             {cells.map((date, i) => {
               if (!date) return <div key={`x${i}`} className="min-h-[74px]" />;
               const k = keyOf(date);
-              const items = BY_DAY[k] || [];
+              const items = byDay[k] || [];
               const isSelected = k === selected;
-              const isSnapshot = keyOf(date) === keyOf(SNAPSHOT);
+              const isSnapshot = k === keyOf(snapshot);
 
               return (
                 <button
@@ -252,7 +286,7 @@ export function CalendarSection({ onNavigate }) {
                     </p>
                   )}
                   <button
-                                       onClick={() => onNavigate?.(e.tab, e.rawId)}
+                    onClick={() => onNavigate?.(e.tab, e.rawId)}
                     className="mt-2.5 w-full rounded-full bg-ocean px-3 py-1.5 text-xs font-semibold text-white"
                   >
                     Open in {e.tab === "deadlines" ? "Deadlines" : "Opportunities"}
@@ -264,14 +298,31 @@ export function CalendarSection({ onNavigate }) {
         </Card>
       </div>
 
-      {UNDATED.length > 0 && (
+      {flagged.length > 0 && (
+        <Card className="mt-4 p-4">
+          <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-ink">
+            <AlertTriangle size={15} className="text-high" />
+            Things that collide — {flagged.length}
+          </p>
+          <div className="flex flex-col gap-2.5">
+            {flagged.map((d) => (
+              <div key={d.id} className="rounded-xl border border-high/25 bg-high/5 p-3">
+                <p className="font-display text-sm font-bold text-ink">{d.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-ink/70">{d.clashNote}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {undated.length > 0 && (
         <Card className="mt-4 p-4">
           <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-ink">
             <HelpCircle size={15} className="text-slate" />
-            Not on the calendar — {UNDATED.length} items
+            Not on the calendar — {undated.length} items
           </p>
           <div className="flex flex-wrap gap-2">
-            {UNDATED.map((d) => (
+            {undated.map((d) => (
               <span
                 key={d.id}
                 className="rounded-full border border-slate/25 px-3 py-1.5 text-xs text-slate"
