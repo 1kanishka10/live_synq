@@ -6,7 +6,7 @@
 import { buildExtractionPrompt } from "../lib/prompt.js";
 
 const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent";
 const MAX_CHUNK = 8;
 
 async function extractOne(message, today) {
@@ -19,17 +19,26 @@ async function extractOne(message, today) {
     today,
   });
 
-  const res = await fetch(GEMINI_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-goog-api-key": process.env.GEMINI_API_KEY,
-    },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { responseMimeType: "application/json" },
-    }),
+  const body = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { responseMimeType: "application/json" },
   });
+
+  // Free-tier models return 503 under load. Retry briefly rather than
+  // losing the message.
+  let res;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    res = await fetch(GEMINI_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": process.env.GEMINI_API_KEY,
+      },
+      body,
+    });
+    if (res.status !== 503) break;
+    await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+  }
 
   if (!res.ok) throw new Error(`Gemini ${res.status}: ${await res.text()}`);
 
