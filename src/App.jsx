@@ -8,6 +8,7 @@ import { ThemeToggle } from "./components/ThemeToggle";
 import { DashboardSection } from "./sections/DashboardSection";
 import { DeadlinesSection } from "./sections/DeadlinesSection";
 import { OpportunitiesSection } from "./sections/OpportunitiesSection";
+import { VerifySection } from "./sections/VerifySection";
 import { CalendarSection } from "./sections/CalendarSection";
 import { SocietiesSection } from "./sections/SocietiesSection";
 import { SearchSection } from "./sections/SearchSection";
@@ -16,6 +17,7 @@ const SECTION_LABEL = {
   dashboard: "Dashboard",
   deadlines: "Urgent Deadlines",
   opportunities: "Campus Opportunities",
+  verify: "Check Before You Act",
   calendar: "Calendar",
   societies: "Societies Directory",
   search: "Announcements",
@@ -78,6 +80,7 @@ export default function App() {
           {tab === "dashboard" && <DashboardSection onNavigate={goTo} />}
           {tab === "deadlines" && <DeadlinesSection />}
           {tab === "opportunities" && <OpportunitiesSection />}
+          {tab === "verify" && <VerifySection />}
           {tab === "calendar" && <CalendarSection onNavigate={goTo} />}
           {tab === "societies" && <SocietiesSection />}
           {tab === "search" && <SearchSection />}
