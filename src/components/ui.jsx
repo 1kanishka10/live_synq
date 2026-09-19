@@ -53,7 +53,12 @@ export function Modal({ open, onClose, title, children }) {
   );
 }
 
-export function Drawer({ open, onClose, title, children }) {
+/**
+ * accent (optional): a CSS color string, e.g. "rgb(var(--c-critical))".
+ * Renders a 4px strip along the top of the panel so the drawer visually
+ * carries the urgency color of whatever it was opened from.
+ */
+export function Drawer({ open, onClose, title, accent, children }) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => e.key === "Escape" && onClose();
@@ -71,17 +76,20 @@ export function Drawer({ open, onClose, title, children }) {
       <div className="absolute inset-0 bg-ink/50 backdrop-blur-sm" onClick={onClose} />
       <div
         className={clsx(
-          "absolute right-0 top-0 h-full w-full max-w-md overflow-y-auto bg-surface shadow-panel transition-transform duration-300",
+          "absolute right-0 top-0 flex h-full w-full max-w-md flex-col overflow-hidden bg-surface shadow-panel transition-transform duration-300",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
-        <div className="sticky top-0 flex items-center justify-between border-b border-slate/10 bg-surface/95 backdrop-blur px-5 py-4">
-          <h3 className="font-display text-lg font-bold text-ink">{title}</h3>
-          <button onClick={onClose} className="rounded-full p-1.5 text-slate hover:bg-canvas" aria-label="Close">
-            <X size={18} />
-          </button>
+        {accent && <div className="h-1 w-full shrink-0" style={{ background: accent }} />}
+        <div className="flex-1 overflow-y-auto">
+          <div className="sticky top-0 flex items-center justify-between border-b border-slate/10 bg-surface/95 backdrop-blur px-5 py-4">
+            <h3 className="font-display text-lg font-bold text-ink">{title}</h3>
+            <button onClick={onClose} className="rounded-full p-1.5 text-slate hover:bg-canvas" aria-label="Close">
+              <X size={18} />
+            </button>
+          </div>
+          <div className="px-5 py-5">{children}</div>
         </div>
-        <div className="px-5 py-5">{children}</div>
       </div>
     </div>
   );
