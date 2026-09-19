@@ -56,7 +56,13 @@ export function DashboardSection({ onNavigate }) {
     <section className="flex flex-col gap-8">
       <header>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-sky">
-          {source === "imported" ? "Your imported chat" : "Snapshot · 15 September 2026"}
+          {source === "imported"
+            ? `Your imported chat · ${new Date().toLocaleDateString(undefined, {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}`
+            : "Sample corpus"}
         </p>
         <h1 className="font-display text-3xl font-bold leading-tight text-ink lg:text-[2.6rem]">
           {stats.messages_in ?? 0} messages in.{" "}
