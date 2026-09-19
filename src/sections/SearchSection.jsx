@@ -123,7 +123,9 @@ export function SearchSection() {
                   <p className="mt-1 text-sm text-ink/70">{a.summary}</p>
                 </div>
                 <span className="shrink-0 text-xs text-slate">
-                  {new Date(a.date).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                  {a.date
+                    ? new Date(a.date).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+                    : "No date"}
                 </span>
               </div>
 
