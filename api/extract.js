@@ -24,10 +24,12 @@ async function extractOne(message, today) {
     generationConfig: { responseMimeType: "application/json" },
   });
 
-  // Free-tier models return 503 under load. Retry briefly rather than
-  // losing the message.
+  // 503 means the model is busy; 429 means we are over the per-minute quota.
+  // The old loop only retried 503, so on a fifty-message import most calls came
+  // back 429, threw immediately, and were reported to the user as "unreadable"
+  // when in fact they were simply sent too fast.
   let res;
-  for (let attempt = 0; attempt < 3; attempt++) {
+  for (let attempt = 0; attempt < 5; attempt++) {
     res = await fetch(GEMINI_URL, {
       method: "POST",
       headers: {
@@ -36,11 +38,24 @@ async function extractOne(message, today) {
       },
       body,
     });
-    if (res.status !== 503) break;
-    await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+
+    const retryable = res.status === 429 || res.status >= 500;
+    if (!retryable || attempt === 4) break;
+
+    // Honour Retry-After when the API sends one, otherwise exponential backoff
+    // with jitter so parallel calls don't all wake up at the same instant.
+    const after = Number(res.headers.get("retry-after"));
+    const wait = Number.isFinite(after) && after > 0
+      ? Math.min(after * 1000, 8000)
+      : Math.min(600 * 2 ** attempt, 8000) + Math.random() * 400;
+    await new Promise((r) => setTimeout(r, wait));
   }
 
-  if (!res.ok) throw new Error(`Gemini ${res.status}: ${await res.text()}`);
+  if (!res.ok) {
+    const text = await res.text();
+    if (res.status === 429) throw new Error("RATE_LIMIT: over the model's per-minute quota");
+    throw new Error(`Gemini ${res.status}: ${text}`);
+  }
 
   const data = await res.json();
   const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -81,10 +96,17 @@ export default async function handler(req, res) {
 
     const stamp = today || new Date().toISOString();
 
-    // One bad message must not lose the whole chunk.
-    const settled = await Promise.allSettled(
-      messages.map((m) => extractOne(m, stamp))
-    );
+    // One bad message must not lose the whole chunk — but neither should the
+    // whole chunk leave at once. Three at a time keeps us under the free-tier
+    // rate limit while still being far faster than one by one.
+    const settled = [];
+    const LANES = 3;
+    for (let i = 0; i < messages.length; i += LANES) {
+      const batch = await Promise.allSettled(
+        messages.slice(i, i + LANES).map((m) => extractOne(m, stamp))
+      );
+      settled.push(...batch);
+    }
 
     const records = [];
     const failed = [];
