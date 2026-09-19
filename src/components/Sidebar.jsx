@@ -1,5 +1,5 @@
 import React from "react";
-import { LayoutDashboard, AlarmClock, Compass, CalendarDays, CalendarClock, Users, Search, ShieldQuestion } from "lucide-react";
+import { LayoutDashboard, AlarmClock, Compass, CalendarDays, Search, ShieldQuestion } from "lucide-react";
 import clsx from "clsx";
 import { SynqMark } from "./SynqMark";
 
