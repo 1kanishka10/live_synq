@@ -9,59 +9,59 @@
    ============================================================ */
 
 :root {
-  --c-canvas: 5 11 30;
-  --c-surface: 12 22 49;
-  --c-sky: 143 192 255;
-  --c-sky-50: 195 220 255;
-  --c-ocean: 47 95 224;
-  --c-ocean-light: 76 123 245;
-  --c-ocean-dark: 27 63 168;
-  --c-slate: 132 148 184;
-  --c-ink: 234 240 255;
-  --c-critical: 255 107 90;
-  --c-high: 255 181 71;
-  --c-medium: 53 211 154;
+  --c-canvas: 24 25 37;
+  --c-surface: 61 64 91;
+  --c-sky: 250 224 178;
+  --c-sky-50: 255 236 204;
+  --c-ocean: 255 183 3;
+  --c-ocean-light: 255 199 51;
+  --c-ocean-dark: 204 146 2;
+  --c-slate: 168 165 196;
+  --c-ink: 244 241 222;
+  --c-critical: 193 69 58;
+  --c-high: 224 122 95;
+  --c-medium: 129 178 154;
 
-  --hair: rgba(143, 192, 255, 0.1);
-  --hair-lit: rgba(143, 192, 255, 0.22);
-  --panel-bg: rgba(12, 22, 49, 0.62);
-  --panel-sheen: rgba(143, 192, 255, 0.075);
+  --hair: rgba(244, 241, 222, 0.1);
+  --hair-lit: rgba(244, 241, 222, 0.22);
+  --panel-bg: rgba(61, 64, 91, 0.62);
+  --panel-sheen: rgba(255, 199, 51, 0.075);
   --shadow-panel: inset 0 1px 0 rgba(255, 255, 255, 0.05),
     0 18px 44px -24px rgba(0, 0, 0, 0.95);
   --shadow-lift: inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 28px 60px -28px rgba(0, 0, 0, 1);
 
-  --bg-1: rgba(47, 95, 224, 0.28);
-  --bg-2: rgba(143, 192, 255, 0.13);
-  --bg-3: rgba(27, 63, 168, 0.24);
+  --bg-1: rgba(255, 183, 3, 0.22);
+  --bg-2: rgba(224, 122, 95, 0.14);
+  --bg-3: rgba(204, 146, 2, 0.2);
 }
 
 :root[data-theme="light"] {
-  --c-canvas: 244 247 253;
-  --c-surface: 255 255 255;
-  --c-sky: 27 79 176;
-   --c-sky-50: 220 232 255;
-  --c-ocean: 47 95 224;
-  --c-ocean-light: 76 123 245;
-  --c-ocean-dark: 27 63 168;
-  --c-slate: 90 103 132;
-  --c-ink: 10 20 48;
-  --c-critical: 193 68 45;
-  --c-high: 166 106 12;
-  --c-medium: 18 128 92;
+  --c-canvas: 244 241 222;
+  --c-surface: 253 251 244;
+  --c-sky: 204 146 2;
+  --c-sky-50: 255 224 150;
+  --c-ocean: 178 122 4;
+  --c-ocean-light: 224 158 10;
+  --c-ocean-dark: 138 92 3;
+  --c-slate: 110 100 130;
+  --c-ink: 35 36 54;
+  --c-critical: 160 50 40;
+  --c-high: 180 90 65;
+  --c-medium: 70 130 100;
 
-  --hair: rgba(10, 20, 48, 0.1);
-  --hair-lit: rgba(47, 95, 224, 0.35);
+  --hair: rgba(35, 36, 54, 0.1);
+  --hair-lit: rgba(178, 122, 4, 0.35);
   --panel-bg: rgba(255, 255, 255, 0.78);
-  --panel-sheen: rgba(47, 95, 224, 0.045);
-  --shadow-panel: 0 1px 2px rgba(10, 20, 48, 0.04),
-    0 12px 30px -18px rgba(10, 20, 48, 0.35);
-  --shadow-lift: 0 2px 4px rgba(10, 20, 48, 0.05),
-    0 20px 44px -22px rgba(10, 20, 48, 0.4);
+  --panel-sheen: rgba(178, 122, 4, 0.045);
+  --shadow-panel: 0 1px 2px rgba(35, 36, 54, 0.04),
+    0 12px 30px -18px rgba(35, 36, 54, 0.35);
+  --shadow-lift: 0 2px 4px rgba(35, 36, 54, 0.05),
+    0 20px 44px -22px rgba(35, 36, 54, 0.4);
 
-  --bg-1: rgba(47, 95, 224, 0.1);
-  --bg-2: rgba(143, 192, 255, 0.18);
-  --bg-3: rgba(47, 95, 224, 0.08);
+  --bg-1: rgba(178, 122, 4, 0.1);
+  --bg-2: rgba(224, 158, 10, 0.18);
+  --bg-3: rgba(138, 92, 3, 0.08);
 }
 
 * {
@@ -132,7 +132,7 @@ h3 {
 }
 
 ::selection {
-  background: rgba(47, 95, 224, 0.4);
+  background: rgba(255, 183, 3, 0.4);
   color: #fff;
 }
 
@@ -153,21 +153,21 @@ h3 {
   }
 
   .hover\:bg-white:hover {
-    background-color: rgba(143, 192, 255, 0.12);
+    background-color: rgba(244, 241, 222, 0.12);
   }
 
   .bg-ink\/50 {
-    background-color: rgba(3, 7, 18, 0.72);
+    background-color: rgba(12, 12, 20, 0.72);
   }
 
   .bg-ocean {
     background-image: linear-gradient(
       135deg,
-      #4c7bf5 0%,
-      #2f5fe0 55%,
-      #1b3fa8 100%
+      #ffc733 0%,
+      #ffb703 55%,
+      #cc9202 100%
     );
-    box-shadow: 0 10px 28px -12px rgba(47, 95, 224, 0.85);
+    box-shadow: 0 10px 28px -12px rgba(255, 183, 3, 0.85);
   }
 }
 
@@ -176,7 +176,7 @@ h3 {
   background-image: linear-gradient(
     158deg,
     var(--panel-sheen) 0%,
-    rgba(143, 192, 255, 0) 46%
+    rgba(255, 199, 51, 0) 46%
   );
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
@@ -184,24 +184,24 @@ h3 {
 
 /* The sidebar and every dropdown stay dark in both themes. */
 .glass-dark {
-  background: rgba(5, 11, 30, 0.92);
+  background: rgba(24, 25, 37, 0.92);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
 
 /* So text inside them keeps its dark-theme colours when the page is light. */
 :root[data-theme="light"] .glass-dark .text-ink {
-  color: rgb(234 240 255);
+  color: rgb(244 241 222);
 }
 :root[data-theme="light"] .glass-dark .text-ink\/70 {
-  color: rgba(234, 240, 255, 0.7);
+  color: rgba(244, 241, 222, 0.7);
 }
 :root[data-theme="light"] .glass-dark .text-slate {
-  color: rgb(148 163 197);
+  color: rgb(168 165 196);
 }
 :root[data-theme="light"] .glass-dark .border-white\/60,
 :root[data-theme="light"] .glass-dark .border-slate\/20 {
-  border-color: rgba(143, 192, 255, 0.16);
+  border-color: rgba(255, 199, 51, 0.16);
 }
 
 /* ---- Entrance -------------------------------------------------*/
