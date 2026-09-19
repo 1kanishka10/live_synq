@@ -10,7 +10,7 @@ import { DeadlinesSection } from "./sections/DeadlinesSection";
 import { OpportunitiesSection } from "./sections/OpportunitiesSection";
 import { VerifySection } from "./sections/VerifySection";
 import { CalendarSection } from "./sections/CalendarSection";
-import { SocietiesSection } from "./sections/SocietiesSection";
+
 import { SearchSection } from "./sections/SearchSection";
 
 const SECTION_LABEL = {
@@ -19,7 +19,7 @@ const SECTION_LABEL = {
   opportunities: "Campus Opportunities",
   verify: "Check Before You Act",
   calendar: "Calendar",
-  societies: "Who Announces Things",
+  
   search: "Announcements",
 };
 
@@ -82,7 +82,7 @@ export default function App() {
           {tab === "opportunities" && <OpportunitiesSection />}
           {tab === "verify" && <VerifySection />}
           {tab === "calendar" && <CalendarSection onNavigate={goTo} />}
-          {tab === "societies" && <SocietiesSection />}
+          
           {tab === "search" && <SearchSection />}
         </main>
       </div>
