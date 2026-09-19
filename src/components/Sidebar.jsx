@@ -9,7 +9,6 @@ const NAV = [
   { key: "opportunities", label: "Opportunities", icon: Compass },
   { key: "verify", label: "Verify", icon: ShieldQuestion },
   { key: "calendar", label: "Calendar", icon: CalendarDays },
-  { key: "societies", label: "Sources", icon: Users },
   { key: "search", label: "Announcements", icon: Search },
 ];
 
