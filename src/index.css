@@ -152,6 +152,15 @@ h3 {
     border-color: var(--hair);
   }
 
+  /* The sections inherited white hairlines from the dark-only design. On the
+     light cream surface white-at-10% is invisible, so route them through the
+     same token — identical in dark, correct in light. */
+  .border-white\/5,
+  .border-white\/10,
+  .border-white\/15 {
+    border-color: var(--hair);
+  }
+
   .hover\:bg-white:hover {
     background-color: rgba(244, 241, 222, 0.12);
   }
@@ -202,6 +211,14 @@ h3 {
 :root[data-theme="light"] .glass-dark .border-white\/60,
 :root[data-theme="light"] .glass-dark .border-slate\/20 {
   border-color: rgba(255, 199, 51, 0.16);
+}
+
+/* The dropdowns stay dark when the page is light, so their hairlines have to
+   stay light too — undo the token above inside them. */
+:root[data-theme="light"] .glass-dark .border-white\/5,
+:root[data-theme="light"] .glass-dark .border-white\/10,
+:root[data-theme="light"] .glass-dark .border-white\/15 {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ---- Entrance -------------------------------------------------*/
