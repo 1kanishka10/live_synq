@@ -5,6 +5,7 @@
 
 import { thread } from "../lib/thread.js";
 import { rank, findClashes } from "../lib/rank.js";
+import { assessAll } from "../lib/trust.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -32,7 +33,12 @@ export default async function handler(req, res) {
 
     const threaded = await thread(records);
     const ranked = rank(threaded, profile);
-    const items = findClashes(ranked);
+    const clashed = findClashes(ranked);
+
+    // Stage 4: corroboration check. Runs last, because it reads how many
+    // independent sources threading found for each item. Nothing is removed
+    // here — items are annotated, never dropped.
+    const items = assessAll(clashed);
 
     const signal = records.length - noise.length;
 
@@ -42,6 +48,7 @@ export default async function handler(req, res) {
       duplicates_collapsed: Math.max(0, signal - items.length),
       noise_dropped: noise.length,
       items_total: items.length,
+      needs_verifying: items.filter((i) => i.trust?.status === "verify").length,
     };
 
     return res.status(200).json({ items, stats, noise });
