@@ -47,7 +47,7 @@ deadlines
       title: d.title,
       body: d.clashNote,
       at: null,
-      tab: "schedule",
+      tab: "calendar",
     })
   );
 
