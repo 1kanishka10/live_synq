@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   Layers,
   Filter,
@@ -9,16 +9,7 @@ import {
   Inbox,
 } from "lucide-react";
 import { Card, Badge } from "../components/ui";
-import stats from "../data/stats.json";
-import deadlines from "../data/deadlines.json";
-import missed from "../data/missed.json";
-
-const FUNNEL = [
-  { icon: Inbox, value: stats.messages_in, label: "messages read", tone: "text-sky" },
-  { icon: Layers, value: stats.duplicates_collapsed, label: "duplicates collapsed", tone: "text-ocean" },
-  { icon: Filter, value: stats.noise_dropped, label: "dropped as noise", tone: "text-slate" },
-  { icon: CheckCircle2, value: stats.items_total, label: "real items kept", tone: "text-medium" },
-];
+import { useData } from "../data/DataContext";
 
 function when(iso) {
   if (!iso) return "";
@@ -33,20 +24,43 @@ function when(iso) {
 }
 
 export function DashboardSection({ onNavigate }) {
-  const ranked = [...deadlines].sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99));
-    const [pickedId, setPickedId] = useState(ranked[0]?.id);
+  const { stats = {}, deadlines = [], missed = [], source } = useData();
+
+  const [pickedId, setPickedId] = useState(null);
   const [showAllNoise, setShowAllNoise] = useState(false);
+
+  // Rebuilt whenever the dataset changes — an import swaps every number here.
+  const funnel = useMemo(
+    () => [
+      { icon: Inbox, value: stats.messages_in ?? 0, label: "messages read", tone: "text-sky" },
+      { icon: Layers, value: stats.duplicates_collapsed ?? 0, label: "duplicates collapsed", tone: "text-ocean" },
+      { icon: Filter, value: stats.noise_dropped ?? 0, label: "dropped as noise", tone: "text-slate" },
+      { icon: CheckCircle2, value: stats.items_total ?? 0, label: "real items kept", tone: "text-medium" },
+    ],
+    [stats]
+  );
+
+  const ranked = useMemo(
+    () => [...deadlines].sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99)),
+    [deadlines]
+  );
+
+  const noiseExamples = stats.noiseExamples ?? [];
+
+  // pickedId is held loosely: after an import the old id no longer exists,
+  // so fall back to the top-ranked item rather than showing an empty panel.
   const picked = ranked.find((d) => d.id === pickedId) ?? ranked[0];
 
   return (
     <section className="flex flex-col gap-8">
       <header>
         <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-sky">
-                    Snapshot · 15 September 2026
+          {source === "imported" ? "Your imported chat" : "Snapshot · 15 September 2026"}
         </p>
         <h1 className="font-display text-3xl font-bold leading-tight text-ink lg:text-[2.6rem]">
-          {stats.messages_in} messages in.{" "}
-          <span className="text-sky">{stats.now} things</span> you actually have to do.
+          {stats.messages_in ?? 0} messages in.{" "}
+          <span className="text-sky">{stats.now ?? ranked.length} things</span> you actually
+          have to do.
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/70">
           Synq read every message in your campus groups, worked out what each one was
@@ -56,7 +70,7 @@ export function DashboardSection({ onNavigate }) {
       </header>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {FUNNEL.map(({ icon: Icon, value, label, tone }) => (
+        {funnel.map(({ icon: Icon, value, label, tone }) => (
           <Card key={label} className="p-4">
             <Icon size={17} className={tone} />
             <p className="mt-2 font-display text-3xl font-bold text-ink">{value}</p>
@@ -81,7 +95,7 @@ export function DashboardSection({ onNavigate }) {
               key={d.id}
               onClick={() => setPickedId(d.id)}
               className={
-                d.id === pickedId
+                d.id === picked?.id
                   ? "rounded-full bg-ocean px-3.5 py-1.5 text-xs font-semibold text-white"
                   : "rounded-full border border-slate/25 px-3.5 py-1.5 text-xs font-medium text-slate hover:border-ocean hover:text-ink"
               }
@@ -178,14 +192,22 @@ export function DashboardSection({ onNavigate }) {
             </h2>
           </div>
           <div className="flex flex-col gap-2.5">
-            {missed.slice(0, 3).map((m) => (
-              <Card key={m.id} className="p-3.5">
-                <p className="font-display text-sm font-bold text-ink">{m.title}</p>
-                <p className="mt-1 text-xs leading-relaxed text-ink/65">
-                  {m.issue || m.description}
+            {missed.length === 0 ? (
+              <Card className="p-3.5">
+                <p className="text-xs leading-relaxed text-slate">
+                  Nothing in this chat had a deadline that has already passed.
                 </p>
               </Card>
-            ))}
+            ) : (
+              missed.slice(0, 3).map((m) => (
+                <Card key={m.id} className="p-3.5">
+                  <p className="font-display text-sm font-bold text-ink">{m.title}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-ink/65">
+                    {m.issue || m.description}
+                  </p>
+                </Card>
+              ))
+            )}
           </div>
           <p className="mt-2.5 text-xs text-slate">
             Shown rather than hidden, so you know what you missed and why.
@@ -201,11 +223,8 @@ export function DashboardSection({ onNavigate }) {
           </h2>
         </div>
         <Card className="p-4">
-                              <div className="flex flex-col gap-3">
-            {(showAllNoise
-              ? stats.noiseExamples ?? []
-              : (stats.noiseExamples ?? []).slice(0, 6)
-            ).map((n) => (
+          <div className="flex flex-col gap-3">
+            {(showAllNoise ? noiseExamples : noiseExamples.slice(0, 6)).map((n) => (
               <div key={n.id} className="flex gap-2.5">
                 <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-slate" />
                 <div>
@@ -218,20 +237,18 @@ export function DashboardSection({ onNavigate }) {
             ))}
           </div>
 
-          {(stats.noiseExamples ?? []).length > 6 && (
+          {noiseExamples.length > 6 && (
             <button
               onClick={() => setShowAllNoise((v) => !v)}
               className="mt-3 text-xs font-semibold text-ocean hover:underline"
             >
-              {showAllNoise
-                ? "Show fewer"
-                : `Show all ${(stats.noiseExamples ?? []).length}`}
+              {showAllNoise ? "Show fewer" : `Show all ${noiseExamples.length}`}
             </button>
           )}
 
           <p className="mt-3 text-xs text-slate">
-            {stats.noise_dropped} of {stats.messages_in} messages were set aside. Every one
-            of them is still searchable — nothing is deleted.
+            {stats.noise_dropped ?? 0} of {stats.messages_in ?? 0} messages were set aside.
+            Every one of them is still searchable — nothing is deleted.
           </p>
         </Card>
       </div>
