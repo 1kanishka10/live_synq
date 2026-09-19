@@ -335,12 +335,24 @@ export function VerifySection() {
         >
           <ShieldCheck size={26} className="mx-auto mb-3 text-medium" />
           <p className="font-display text-base font-bold text-ink">
-            Nothing here contradicts what it claims.
+            {checked === 0
+              ? "Nothing has been checked yet."
+              : "Nothing here contradicts what it claims."}
           </p>
           <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-slate">
-            {checked} item{checked === 1 ? "" : "s"} were checked against who posted them, how
-            many independent groups repeated them, and whether they asked for money or
-            documents. None raised a decisive problem.
+            {checked === 0 ? (
+              <>
+                Import a chat and every item in it gets checked here — against who posted it,
+                how many independent groups repeated it, and whether it asks for money or
+                documents. The sample corpus was assembled before those checks existed.
+              </>
+            ) : (
+              <>
+                {checked} item{checked === 1 ? "" : "s"} were checked against who posted them,
+                how many independent groups repeated them, and whether they asked for money or
+                documents. None raised a decisive problem.
+              </>
+            )}
           </p>
         </div>
       ) : (
