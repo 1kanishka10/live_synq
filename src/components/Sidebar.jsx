@@ -1,5 +1,5 @@
 import React from "react";
-import { LayoutDashboard, AlarmClock, Compass, CalendarDays, CalendarClock, Users, Search } from "lucide-react";
+import { LayoutDashboard, AlarmClock, Compass, CalendarDays, CalendarClock, Users, Search, ShieldQuestion } from "lucide-react";
 import clsx from "clsx";
 import { SynqMark } from "./SynqMark";
 
@@ -7,6 +7,7 @@ const NAV = [
   { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { key: "deadlines", label: "Urgent Deadlines", icon: AlarmClock },
   { key: "opportunities", label: "Opportunities", icon: Compass },
+  { key: "verify", label: "Verify", icon: ShieldQuestion },
   { key: "calendar", label: "Calendar", icon: CalendarDays },
   { key: "societies", label: "Societies", icon: Users },
   { key: "search", label: "Announcements", icon: Search },
