@@ -41,7 +41,7 @@ export default function App() {
       const el = document.getElementById(`item-${focus.id}`);
       if (!el) return;
       el.scrollIntoView({ behavior: "smooth", block: "center" });
-      el.style.outline = "2px solid #2F5FE0";
+      el.style.outline = "2px solid rgb(var(--c-ocean-light))";
       el.style.outlineOffset = "3px";
       clear = setTimeout(() => {
         el.style.outline = "";
