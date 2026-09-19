@@ -1,7 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Bell, Clock3, AlertTriangle, RefreshCw, Archive } from "lucide-react";
-import deadlines from "../data/deadlines.json";
-import missed from "../data/missed.json";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import {
+  Bell,
+  Clock3,
+  AlertTriangle,
+  RefreshCw,
+  Archive,
+  ShieldQuestion,
+} from "lucide-react";
+import { useData } from "../data/DataContext";
 
 const SEEN_KEY = "synq.notifications.seen";
 
@@ -17,82 +23,113 @@ function when(iso) {
   });
 }
 
-const EVENTS = [];
+// Built from whatever corpus is loaded rather than at module scope. Previously
+// this list was assembled once when the page's JavaScript first ran, so the
+// bell kept showing the sample data's notifications even after a real chat had
+// been imported.
+function buildEvents({ deadlines = [], missed = [], verify = [] }) {
+  const events = [];
 
-// Closing within a day.
-deadlines
-  .filter((d) => d.dueInHours != null && d.dueInHours < 24)
-  .forEach((d) =>
-    EVENTS.push({
-      key: `soon-${d.id}`,
-      kind: "Closing soon",
-      icon: Clock3,
-      tone: "text-critical",
-      title: d.title,
-      body: `Closes in ${d.dueInHours} hours. ${d.consequence || ""}`.trim(),
-      at: null,
-      tab: "deadlines",
-    })
-  );
-
-// Anything the model flagged as a possible overlap.
-deadlines
-  .filter((d) => d.clashNote)
-  .forEach((d) =>
-    EVENTS.push({
-      key: `clash-${d.id}`,
-      kind: "Possible clash",
-      icon: AlertTriangle,
+  // Anything Synq could not corroborate comes first — it is the only kind of
+  // notification where acting before reading can cost you money.
+  verify.forEach((v) =>
+    events.push({
+      key: `verify-${v.id}`,
+      kind: "Check before acting",
+      icon: ShieldQuestion,
       tone: "text-high",
-      title: d.title,
-      body: d.clashNote,
+      title: v.title,
+      body:
+        v.trust?.reasons?.[0]?.headline ??
+        "Synq could not corroborate this against anything else in your groups.",
       at: null,
-      tab: "calendar",
+      tab: "verify",
     })
   );
 
-// Items that were superseded by a later message.
-deadlines.forEach((d) =>
-  (d.history || []).forEach((h, i) =>
-    EVENTS.push({
-      key: `hist-${d.id}-${i}`,
-      kind: "Details changed",
-      icon: RefreshCw,
-      tone: "text-ocean",
-      title: d.title,
-      body: h.what,
-      at: h.at,
-      tab: "deadlines",
-    })
-  )
-);
+  // Closing within a day.
+  deadlines
+    .filter((d) => d.dueInHours != null && d.dueInHours < 24)
+    .forEach((d) =>
+      events.push({
+        key: `soon-${d.id}`,
+        kind: "Closing soon",
+        icon: Clock3,
+        tone: "text-critical",
+        title: d.title,
+        body: `Closes in ${d.dueInHours} hours. ${d.consequence || ""}`.trim(),
+        at: null,
+        tab: "deadlines",
+      })
+    );
 
-// Things that closed before anyone saw them.
-missed.slice(0, 3).forEach((m) =>
-  EVENTS.push({
-    key: `missed-${m.id}`,
-    kind: "Already closed",
-    icon: Archive,
-    tone: "text-slate",
-    title: m.title,
-    body: m.issue || m.description,
-    at: null,
-    tab: "dashboard",
-  })
-);
+  // Anything the model flagged as a possible overlap. These live on the
+  // Calendar now — the old Schedule screen was folded into it.
+  deadlines
+    .filter((d) => d.clashNote)
+    .forEach((d) =>
+      events.push({
+        key: `clash-${d.id}`,
+        kind: "Possible clash",
+        icon: AlertTriangle,
+        tone: "text-high",
+        title: d.title,
+        body: d.clashNote,
+        at: null,
+        tab: "calendar",
+      })
+    );
+
+  // Items that were superseded by a later message.
+  deadlines.forEach((d) =>
+    (d.history || []).forEach((h, i) =>
+      events.push({
+        key: `hist-${d.id}-${i}`,
+        kind: "Details changed",
+        icon: RefreshCw,
+        tone: "text-ocean",
+        title: d.title,
+        body: h.what,
+        at: h.at,
+        tab: "deadlines",
+      })
+    )
+  );
+
+  // Things that closed before anyone saw them.
+  missed.slice(0, 3).forEach((m) =>
+    events.push({
+      key: `missed-${m.id}`,
+      kind: "Already closed",
+      icon: Archive,
+      tone: "text-slate",
+      title: m.title,
+      body: m.issue || m.description,
+      at: null,
+      tab: "dashboard",
+    })
+  );
+
+  return events;
+}
 
 export function NotificationBell({ onNavigate }) {
+  const data = useData();
+  const events = useMemo(() => buildEvents(data), [data]);
+
   const [open, setOpen] = useState(false);
   const [seen, setSeen] = useState(true);
   const boxRef = useRef(null);
 
+  // Re-runs when the corpus changes, so importing a chat brings the dot back
+  // rather than leaving it marked as read against the old list.
   useEffect(() => {
     try {
-      setSeen(window.localStorage.getItem(SEEN_KEY) === String(EVENTS.length));
+      setSeen(window.localStorage.getItem(SEEN_KEY) === String(events.length));
     } catch {
       setSeen(false);
     }
-  }, []);
+  }, [events.length]);
 
   useEffect(() => {
     const onDown = (e) => {
@@ -111,7 +148,7 @@ export function NotificationBell({ onNavigate }) {
     setOpen((v) => !v);
     setSeen(true);
     try {
-      window.localStorage.setItem(SEEN_KEY, String(EVENTS.length));
+      window.localStorage.setItem(SEEN_KEY, String(events.length));
     } catch {
       // Storage blocked — the dot just comes back next visit.
     }
@@ -126,11 +163,11 @@ export function NotificationBell({ onNavigate }) {
     <div ref={boxRef} className="relative">
       <button
         onClick={openPanel}
-        className="relative rounded-full p-2 text-slate hover:bg-white"
-        aria-label={`Notifications, ${EVENTS.length} items`}
+        className="relative rounded-full p-2 text-slate transition-colors hover:bg-slate/10 hover:text-ink"
+        aria-label={`Notifications, ${events.length} items`}
       >
         <Bell size={18} />
-        {!seen && EVENTS.length > 0 && (
+        {!seen && events.length > 0 && (
           <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-critical" />
         )}
       </button>
@@ -145,10 +182,10 @@ export function NotificationBell({ onNavigate }) {
           </div>
 
           <div className="max-h-[22rem] overflow-y-auto">
-            {EVENTS.length === 0 ? (
+            {events.length === 0 ? (
               <p className="px-4 py-6 text-center text-xs text-slate">Nothing new.</p>
             ) : (
-              EVENTS.map((e) => {
+              events.map((e) => {
                 const Icon = e.icon;
                 return (
                   <button
