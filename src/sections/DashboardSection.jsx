@@ -7,6 +7,7 @@ import {
   Sparkles,
   Clock3,
   Inbox,
+  ShieldQuestion,
 } from "lucide-react";
 import { Card, Badge } from "../components/ui";
 import { useData } from "../data/DataContext";
@@ -68,6 +69,26 @@ export function DashboardSection({ onNavigate }) {
           it was pulled out of what people actually posted.
         </p>
       </header>
+
+      {(stats.needs_verifying ?? 0) > 0 && (
+        <button
+          onClick={() => onNavigate?.("verify")}
+          className="flex items-start gap-3 rounded-xl2 border border-high/40 bg-high/5 p-4 text-left transition-transform hover:-translate-y-0.5"
+        >
+          <ShieldQuestion size={19} className="mt-0.5 shrink-0 text-high" />
+          <span>
+            <span className="block text-sm font-semibold text-ink">
+              {stats.needs_verifying} message
+              {stats.needs_verifying === 1 ? "" : "s"} asked you for something Synq could
+              not corroborate.
+            </span>
+            <span className="mt-1 block max-w-2xl text-xs leading-relaxed text-ink/70">
+              Not deleted, not called fake — the reasons are listed and it is still in your
+              feed. Open Check before you act.
+            </span>
+          </span>
+        </button>
+      )}
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {funnel.map(({ icon: Icon, value, label, tone }) => (
