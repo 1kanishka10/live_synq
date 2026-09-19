@@ -6,8 +6,7 @@
 import { buildExtractionPrompt } from "../lib/prompt.js";
 
 const GEMINI_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent";
 const MAX_CHUNK = 8;
 
 async function extractOne(message, today) {
