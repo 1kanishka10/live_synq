@@ -1,12 +1,13 @@
 // api/selftest.js
 // ?list=1        → what models this key can reach
 // ?model=NAME    → run one extraction against that model
+// ?embed=1       → check the embeddings model
 // Safe to keep. Sends no user data.
 
 import { buildExtractionPrompt } from "../lib/prompt.js";
 
 const BASE = "https://generativelanguage.googleapis.com/v1beta";
-const DEFAULT_MODEL = "gemini-3.6-flash";
+const DEFAULT_MODEL = "gemini-3.1-flash-lite";
 
 const SAMPLE = {
   id: "selftest_1",
@@ -36,6 +37,27 @@ export default async function handler(req, res) {
         embedModels: (body.models || [])
           .filter((m) => (m.supportedGenerationMethods || []).includes("embedContent"))
           .map((m) => m.name),
+        ms: Date.now() - started,
+      });
+    }
+
+    if (req.query.embed) {
+      const m = req.query.embed === "1" ? "gemini-embedding-001" : req.query.embed;
+      const r = await fetch(`${BASE}/models/${m}:embedContent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+        body: JSON.stringify({
+          model: `models/${m}`,
+          content: { parts: [{ text: "GDG recruitment closes 20 September" }] },
+        }),
+      });
+      const b = await r.json();
+      return res.status(200).json({
+        ok: r.ok,
+        model: m,
+        httpStatus: r.status,
+        dimensions: b?.embedding?.values?.length ?? null,
+        detail: r.ok ? undefined : JSON.stringify(b).slice(0, 300),
         ms: Date.now() - started,
       });
     }
