@@ -19,7 +19,7 @@ const SECTION_LABEL = {
   opportunities: "Campus Opportunities",
   verify: "Check Before You Act",
   calendar: "Calendar",
-  societies: "Societies Directory",
+  societies: "Who Announces Things",
   search: "Announcements",
 };
 
