@@ -25,6 +25,19 @@ const DEFAULT_PROFILE = {
 
 const pad = (n) => String(n).padStart(2, "0");
 
+// "WhatsApp Chat with CS-AI 2030.txt" -> "CS-AI 2030".
+// The group name is the only place the channel can come from, and the channel
+// is what lets Synq tell "three people in one group" from "three groups".
+function channelFromName(filename = "") {
+  return (
+    filename
+      .replace(/\.[^.]+$/, "")
+      .replace(/^whatsapp\s+chat\s+with\s+/i, "")
+      .replace(/^chat\s+with\s+/i, "")
+      .trim() || "Imported chat"
+  );
+}
+
 function toISO(d, m, y, hh, mm, ss, ampm) {
   let year = Number(y);
   if (year < 100) year += 2000;
@@ -37,7 +50,7 @@ function toISO(d, m, y, hh, mm, ss, ampm) {
 
 // Returns real message objects, not just a count. A message body can run over
 // several lines, so any line that isn't a new header belongs to the last one.
-function readExport(text) {
+function readExport(text, channel, idPrefix = "m") {
   const out = [];
   const senders = new Set();
   let n = 0;
@@ -50,10 +63,10 @@ function readExport(text) {
       n += 1;
       senders.add(sender.trim());
       out.push({
-        id: `msg_${String(n).padStart(3, "0")}`,
+        id: `${idPrefix}_${String(n).padStart(3, "0")}`,
         text: body,
         sender: sender.trim(),
-        channel: "Imported chat",
+        channel,
         sent_at: toISO(dd, mo, yy, hh, mi, ss, mer),
       });
     } else if (out.length && line.trim()) {
@@ -67,7 +80,7 @@ function readExport(text) {
 export function ImportButton() {
   const { replaceAll } = useData();
   const [open, setOpen] = useState(false);
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState([]);
   const [parsed, setParsed] = useState(null);
   const [phase, setPhase] = useState("idle"); // idle | extracting | finalizing | done
   const [progress, setProgress] = useState({ done: 0, total: 0 });
@@ -76,27 +89,49 @@ export function ImportButton() {
   const [error, setError] = useState(null);
   const inputRef = useRef(null);
 
-  function handleFile(f) {
-    if (!f) return;
-    setFile(f);
+  function handleFiles(fileList) {
+    const files = Array.from(fileList || []).filter(Boolean);
+    if (!files.length) return;
+
+    setFiles(files);
     setError(null);
     setParsed(null);
     setSummary(null);
     setPhase("idle");
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = readExport(String(reader.result || ""));
-      if (result.messages.length === 0) {
+    Promise.all(
+      files.map(
+        (f, i) =>
+          new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () =>
+              resolve(
+                readExport(String(reader.result || ""), channelFromName(f.name), `g${i + 1}`)
+              );
+            reader.onerror = () => resolve({ messages: [], senders: 0 });
+            reader.readAsText(f);
+          })
+      )
+    ).then((results) => {
+      // One timeline across every group, so threading sees a reminder in one
+      // group as following the announcement in another.
+      const messages = results
+        .flatMap((r) => r.messages)
+        .sort((a, b) => new Date(a.sent_at) - new Date(b.sent_at));
+
+      if (messages.length === 0) {
         setError(
-          "No WhatsApp-formatted messages were found in that file. Export the chat without media and try the .txt file."
+          "No WhatsApp-formatted messages were found. Export each chat without media and try the .txt files."
         );
-      } else {
-        setParsed(result);
+        return;
       }
-    };
-    reader.onerror = () => setError("That file could not be read.");
-    reader.readAsText(f);
+
+      setParsed({
+        messages,
+        senders: new Set(messages.map((m) => m.sender)).size,
+        channels: new Set(messages.map((m) => m.channel)).size,
+      });
+    });
   }
 
   async function run() {
@@ -197,7 +232,7 @@ export function ImportButton() {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/50 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#050B1E]/70 p-4 backdrop-blur-sm"
           onClick={busy ? undefined : close}
         >
           <div
@@ -224,9 +259,9 @@ export function ImportButton() {
             {phase !== "done" && (
               <ol className="mb-5 flex flex-col gap-3">
                 {[
-                  "Open the group in WhatsApp and tap ⋮ → More → Export chat.",
-                  "Choose Without media. You'll get a .txt file.",
-                  "Drop that file below. Synq extracts, threads and ranks it.",
+                  "Open each group in WhatsApp and tap ⋮ → More → Export chat.",
+                  "Choose Without media. You'll get a .txt file per group.",
+                  "Drop them all in at once — Synq names each channel after its group, which is how it can tell one noisy group from three that agree.",
                 ].map((step, i) => (
                   <li key={i} className="flex gap-3">
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean text-[10px] font-bold text-white">
@@ -243,7 +278,8 @@ export function ImportButton() {
               type="file"
               accept=".txt,text/plain"
               className="hidden"
-              onChange={(e) => handleFile(e.target.files?.[0])}
+              multiple
+              onChange={(e) => handleFiles(e.target.files)}
             />
 
             {phase !== "done" && (
@@ -253,15 +289,23 @@ export function ImportButton() {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => {
                   e.preventDefault();
-                  if (!busy) handleFile(e.dataTransfer.files?.[0]);
+                  if (!busy) handleFiles(e.dataTransfer.files);
                 }}
                 className="flex w-full flex-col items-center gap-2 rounded-xl border border-dashed border-slate/40 px-4 py-7 text-center hover:border-ocean disabled:opacity-50"
               >
                 <FileText size={22} className="text-slate" />
                 <span className="text-sm font-medium text-ink">
-                  {file ? file.name : "Choose a chat export, or drop it here"}
+                  {files.length === 0
+                    ? "Choose your chat exports, or drop them here"
+                    : files.length === 1
+                      ? files[0].name
+                      : `${files.length} groups selected`}
                 </span>
-                <span className="text-xs text-slate">.txt from WhatsApp</span>
+                <span className="text-xs text-slate">
+                  {files.length > 1
+                    ? files.map((f) => channelFromName(f.name)).join(" · ")
+                    : "one .txt per group — you can pick several"}
+                </span>
               </button>
             )}
 
@@ -277,7 +321,11 @@ export function ImportButton() {
                 <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-medium" />
                 <p className="text-xs leading-relaxed text-ink/80">
                   Read <strong className="text-ink">{parsed.messages.length} messages</strong>{" "}
-                  from <strong className="text-ink">{parsed.senders} senders</strong>.
+                  from <strong className="text-ink">{parsed.senders} senders</strong> across{" "}
+                  <strong className="text-ink">
+                    {parsed.channels} group{parsed.channels === 1 ? "" : "s"}
+                  </strong>
+                  .
                   {parsed.messages.length > MAX_MESSAGES &&
                     ` Only the first ${MAX_MESSAGES} will be processed.`}
                 </p>
