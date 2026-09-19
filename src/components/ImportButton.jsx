@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Upload, X, FileText, CheckCircle2, Info, Loader2, AlertTriangle } from "lucide-react";
 import { useData } from "../data/DataContext";
 import { adapt } from "../../lib/adapt";
@@ -85,6 +86,7 @@ export function ImportButton() {
   const [phase, setPhase] = useState("idle"); // idle | extracting | finalizing | done
   const [progress, setProgress] = useState({ done: 0, total: 0 });
   const [skipped, setSkipped] = useState(0);
+  const [rateLimited, setRateLimited] = useState(false);
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState(null);
   const inputRef = useRef(null);
@@ -134,6 +136,16 @@ export function ImportButton() {
     });
   }
 
+  // Stop the page behind the dialog from scrolling under it.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   async function run() {
     if (!parsed) return;
 
@@ -144,6 +156,7 @@ export function ImportButton() {
     setPhase("extracting");
     setProgress({ done: 0, total: messages.length });
     setSkipped(0);
+    setRateLimited(false);
 
     try {
       // Stage 1, in chunks — each call stays well inside the function timeout,
@@ -167,6 +180,11 @@ export function ImportButton() {
         const { records: got, failed } = await res.json();
         records.push(...got);
         failedCount += failed?.length ?? 0;
+        // "Unreadable" and "sent too fast" are different problems and deserve
+        // different advice.
+        if ((failed ?? []).some((f) => /RATE_LIMIT|429|quota/i.test(f.error || ""))) {
+          setRateLimited(true);
+        }
         setProgress({ done: Math.min(i + CHUNK, messages.length), total: messages.length });
         setSkipped(failedCount);
       }
@@ -230,179 +248,192 @@ export function ImportButton() {
         Import chat
       </button>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#050B1E]/70 p-4 backdrop-blur-sm"
-          onClick={busy ? undefined : close}
-        >
+      {open &&
+        createPortal(
+          // Portalled to <body> on purpose. This button sits inside the app
+          // header, and the header has a backdrop-filter — which makes it the
+          // containing block for position:fixed children. Rendered in place,
+          // the dialog centred itself on the 70px header and its top half went
+          // off-screen. The portal escapes that.
           <div
-            className="bg-surface max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-xl2 border border-white/60 p-6 shadow-lift"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-ink/50 backdrop-blur-sm"
+            onClick={busy ? undefined : close}
           >
-            <div className="mb-5 flex items-start justify-between gap-4">
-              <div>
-                <h2 className="font-display text-lg font-bold text-ink">Import your chats</h2>
-                <p className="mt-1 text-sm text-slate">
-                  Synq reads a WhatsApp export and processes it live.
-                </p>
-              </div>
-              <button
-                onClick={close}
-                disabled={busy}
-                className="shrink-0 rounded-full p-1.5 text-slate hover:bg-slate/10 disabled:opacity-40"
-                aria-label="Close"
+            {/* The overlay scrolls, not the panel, so a tall dialog can never
+                clip its own top on a short viewport. */}
+            <div className="flex min-h-full items-center justify-center p-4">
+              <div
+                className="bg-surface relative w-full max-w-lg rounded-xl2 border border-white/60 p-6 shadow-lift"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X size={18} />
-              </button>
-            </div>
-
-            {phase !== "done" && (
-              <ol className="mb-5 flex flex-col gap-3">
-                {[
-                  "Open each group in WhatsApp and tap ⋮ → More → Export chat.",
-                  "Choose Without media. You'll get a .txt file per group.",
-                  "Drop them all in at once — Synq names each channel after its group, which is how it can tell one noisy group from three that agree.",
-                ].map((step, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean text-[10px] font-bold text-white">
-                      {i + 1}
-                    </span>
-                    <span className="text-sm leading-relaxed text-ink/80">{step}</span>
-                  </li>
-                ))}
-              </ol>
-            )}
-
-            <input
-              ref={inputRef}
-              type="file"
-              accept=".txt,text/plain"
-              className="hidden"
-              multiple
-              onChange={(e) => handleFiles(e.target.files)}
-            />
-
-            {phase !== "done" && (
-              <button
-                onClick={() => inputRef.current?.click()}
-                disabled={busy}
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  if (!busy) handleFiles(e.dataTransfer.files);
-                }}
-                className="flex w-full flex-col items-center gap-2 rounded-xl border border-dashed border-slate/40 px-4 py-7 text-center hover:border-ocean disabled:opacity-50"
-              >
-                <FileText size={22} className="text-slate" />
-                <span className="text-sm font-medium text-ink">
-                  {files.length === 0
-                    ? "Choose your chat exports, or drop them here"
-                    : files.length === 1
-                      ? files[0].name
-                      : `${files.length} groups selected`}
-                </span>
-                <span className="text-xs text-slate">
-                  {files.length > 1
-                    ? files.map((f) => channelFromName(f.name)).join(" · ")
-                    : "one .txt per group — you can pick several"}
-                </span>
-              </button>
-            )}
-
-            {error && (
-              <div className="mt-4 flex items-start gap-2 rounded-lg border border-critical/30 bg-critical/5 p-3">
-                <AlertTriangle size={15} className="mt-0.5 shrink-0 text-critical" />
-                <p className="text-xs leading-relaxed text-ink/80">{error}</p>
-              </div>
-            )}
-
-            {parsed && phase === "idle" && !error && (
-              <div className="mt-4 flex items-start gap-2 rounded-lg border border-medium/30 bg-medium/5 p-3">
-                <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-medium" />
-                <p className="text-xs leading-relaxed text-ink/80">
-                  Read <strong className="text-ink">{parsed.messages.length} messages</strong>{" "}
-                  from <strong className="text-ink">{parsed.senders} senders</strong> across{" "}
-                  <strong className="text-ink">
-                    {parsed.channels} group{parsed.channels === 1 ? "" : "s"}
-                  </strong>
-                  .
-                  {parsed.messages.length > MAX_MESSAGES &&
-                    ` Only the first ${MAX_MESSAGES} will be processed.`}
-                </p>
-              </div>
-            )}
-
-            {busy && (
-              <div className="mt-4 rounded-lg border border-ocean/30 bg-ocean/5 p-3.5">
-                <p className="mb-2 flex items-center gap-2 text-xs font-semibold text-ink">
-                  <Loader2 size={14} className="animate-spin text-ocean" />
-                  {phase === "extracting"
-                    ? `Reading message ${progress.done} of ${progress.total}`
-                    : "Grouping duplicates and ranking…"}
-                </p>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate/20">
-                  <div
-                    className="h-full rounded-full bg-ocean transition-all duration-300"
-                    style={{
-                      width:
-                        phase === "finalizing"
-                          ? "100%"
-                          : `${Math.round((progress.done / Math.max(progress.total, 1)) * 100)}%`,
-                    }}
-                  />
+                <div className="mb-5 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="font-display text-lg font-bold text-ink">Import your chats</h2>
+                    <p className="mt-1 text-sm text-slate">
+                      Synq reads a WhatsApp export and processes it live.
+                    </p>
+                  </div>
+                  <button
+                    onClick={close}
+                    disabled={busy}
+                    className="shrink-0 rounded-full p-1.5 text-slate hover:bg-slate/10 disabled:opacity-40"
+                    aria-label="Close"
+                  >
+                    <X size={18} />
+                  </button>
                 </div>
-                {skipped > 0 && (
-                  <p className="mt-2 text-[11px] text-slate">
-                    {skipped} message{skipped === 1 ? "" : "s"} could not be read and were
-                    skipped.
-                  </p>
+
+                {phase !== "done" && (
+                  <ol className="mb-5 flex flex-col gap-3">
+                    {[
+                      "Open each group in WhatsApp and tap ⋮ → More → Export chat.",
+                      "Choose Without media. You'll get a .txt file per group.",
+                      "Drop them all in at once — Synq names each channel after its group, which is how it can tell one noisy group from three that agree.",
+                    ].map((step, i) => (
+                      <li key={i} className="flex gap-3">
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ocean text-[10px] font-bold text-white">
+                          {i + 1}
+                        </span>
+                        <span className="text-sm leading-relaxed text-ink/80">{step}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+
+                <input
+                  ref={inputRef}
+                  type="file"
+                  accept=".txt,text/plain"
+                  className="hidden"
+                  multiple
+                  onChange={(e) => handleFiles(e.target.files)}
+                />
+
+                {phase !== "done" && (
+                  <button
+                    onClick={() => inputRef.current?.click()}
+                    disabled={busy}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      if (!busy) handleFiles(e.dataTransfer.files);
+                    }}
+                    className="flex w-full flex-col items-center gap-2 rounded-xl border border-dashed border-slate/40 px-4 py-7 text-center hover:border-ocean disabled:opacity-50"
+                  >
+                    <FileText size={22} className="text-slate" />
+                    <span className="text-sm font-medium text-ink">
+                      {files.length === 0
+                        ? "Choose your chat exports, or drop them here"
+                        : files.length === 1
+                          ? files[0].name
+                          : `${files.length} groups selected`}
+                    </span>
+                    <span className="text-xs text-slate">
+                      {files.length > 1
+                        ? files.map((f) => channelFromName(f.name)).join(" · ")
+                        : "one .txt per group — you can pick several"}
+                    </span>
+                  </button>
+                )}
+
+                {error && (
+                  <div className="mt-4 flex items-start gap-2 rounded-lg border border-critical/30 bg-critical/5 p-3">
+                    <AlertTriangle size={15} className="mt-0.5 shrink-0 text-critical" />
+                    <p className="text-xs leading-relaxed text-ink/80">{error}</p>
+                  </div>
+                )}
+
+                {parsed && phase === "idle" && !error && (
+                  <div className="mt-4 flex items-start gap-2 rounded-lg border border-medium/30 bg-medium/5 p-3">
+                    <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-medium" />
+                    <p className="text-xs leading-relaxed text-ink/80">
+                      Read <strong className="text-ink">{parsed.messages.length} messages</strong>{" "}
+                      from <strong className="text-ink">{parsed.senders} senders</strong> across{" "}
+                      <strong className="text-ink">
+                        {parsed.channels} group{parsed.channels === 1 ? "" : "s"}
+                      </strong>
+                      .
+                      {parsed.messages.length > MAX_MESSAGES &&
+                        ` Only the first ${MAX_MESSAGES} will be processed.`}
+                    </p>
+                  </div>
+                )}
+
+                {busy && (
+                  <div className="mt-4 rounded-lg border border-ocean/30 bg-ocean/5 p-3.5">
+                    <p className="mb-2 flex items-center gap-2 text-xs font-semibold text-ink">
+                      <Loader2 size={14} className="animate-spin text-ocean" />
+                      {phase === "extracting"
+                        ? `Reading message ${progress.done} of ${progress.total}`
+                        : "Grouping duplicates and ranking…"}
+                    </p>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate/20">
+                      <div
+                        className="h-full rounded-full bg-ocean transition-all duration-300"
+                        style={{
+                          width:
+                            phase === "finalizing"
+                              ? "100%"
+                              : `${Math.round((progress.done / Math.max(progress.total, 1)) * 100)}%`,
+                        }}
+                      />
+                    </div>
+                    {skipped > 0 && (
+                      <p className="mt-2 text-[11px] text-slate">
+                        {skipped} message{skipped === 1 ? "" : "s"}{" "}
+                        {rateLimited
+                          ? "hit the model's per-minute limit and were skipped. Wait a minute and import again to pick them up."
+                          : "could not be read and were skipped."}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {phase === "done" && summary && (
+                  <div className="rounded-xl border border-medium/30 bg-medium/5 p-4">
+                    <p className="font-display text-sm font-bold text-ink">
+                      {summary.messages} messages in. {summary.now} things you actually have to do.
+                    </p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-ink/75">
+                      {summary.kept} real items kept, {summary.noise} set aside as noise
+                      {skipped > 0 ? `, ${skipped} ${rateLimited ? "rate-limited" : "unreadable"}` : ""}. Every screen below is now
+                      showing your chat.
+                    </p>
+                  </div>
+                )}
+
+                {phase !== "done" && (
+                  <div className="mt-4 flex items-start gap-2 rounded-lg border border-slate/25 p-3">
+                    <Info size={15} className="mt-0.5 shrink-0 text-slate" />
+                    <p className="text-xs leading-relaxed text-slate">
+                      Your messages are sent to Synq's own endpoint and on to the extraction
+                      model. They are processed in memory and not saved. The app ships with a
+                      sample corpus so it works before you import anything.
+                    </p>
+                  </div>
+                )}
+
+                {phase === "done" ? (
+                  <button
+                    onClick={close}
+                    className="mt-5 w-full rounded-full bg-ocean px-5 py-2.5 text-sm font-semibold text-white"
+                  >
+                    Show me what it found
+                  </button>
+                ) : (
+                  <button
+                    onClick={run}
+                    disabled={!parsed || busy}
+                    className="mt-5 w-full rounded-full bg-ocean px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-40"
+                  >
+                    {busy ? "Processing…" : "Process this chat"}
+                  </button>
                 )}
               </div>
-            )}
-
-            {phase === "done" && summary && (
-              <div className="rounded-xl border border-medium/30 bg-medium/5 p-4">
-                <p className="font-display text-sm font-bold text-ink">
-                  {summary.messages} messages in. {summary.now} things you actually have to do.
-                </p>
-                <p className="mt-1.5 text-xs leading-relaxed text-ink/75">
-                  {summary.kept} real items kept, {summary.noise} set aside as noise
-                  {skipped > 0 ? `, ${skipped} unreadable` : ""}. Every screen below is now
-                  showing your chat.
-                </p>
-              </div>
-            )}
-
-            {phase !== "done" && (
-              <div className="mt-4 flex items-start gap-2 rounded-lg border border-slate/25 p-3">
-                <Info size={15} className="mt-0.5 shrink-0 text-slate" />
-                <p className="text-xs leading-relaxed text-slate">
-                  Your messages are sent to Synq's own endpoint and on to the extraction
-                  model. They are processed in memory and not saved. The app ships with a
-                  sample corpus so it works before you import anything.
-                </p>
-              </div>
-            )}
-
-            {phase === "done" ? (
-              <button
-                onClick={close}
-                className="mt-5 w-full rounded-full bg-ocean px-5 py-2.5 text-sm font-semibold text-white"
-              >
-                Show me what it found
-              </button>
-            ) : (
-              <button
-                onClick={run}
-                disabled={!parsed || busy}
-                className="mt-5 w-full rounded-full bg-ocean px-5 py-2.5 text-sm font-semibold text-white disabled:opacity-40"
-              >
-                {busy ? "Processing…" : "Process this chat"}
-              </button>
-            )}
-          </div>
-        </div>
-      )}
+            </div>
+          </div>,
+          document.body
+        )}
     </>
   );
 }
