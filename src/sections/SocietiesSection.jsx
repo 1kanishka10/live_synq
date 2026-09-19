@@ -122,6 +122,21 @@ export function SocietiesSection() {
         ))}
       </div>
 
+      {societies.length === 0 ? (
+        <div
+          className="rounded-xl2 border p-10 text-center"
+          style={{ borderColor: "var(--hair)", background: "rgb(var(--c-surface))" }}
+        >
+          <Users size={24} className="mx-auto mb-3 text-slate" />
+          <p className="font-display text-base font-bold text-ink">
+            No societies in this chat.
+          </p>
+          <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-slate">
+            This directory is built from a curated list, not from messages, so an imported
+            chat does not fill it. Synq will not invent one.
+          </p>
+        </div>
+      ) : (
       <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:grid-cols-4">
         {showClash && clashSocieties[0] && clashSocieties[1] && (
           <ClashCell a={clashSocieties[0]} b={clashSocieties[1]} onOpen={setSelected} />
@@ -130,6 +145,7 @@ export function SocietiesSection() {
           <Cell key={s.id} s={s} size={sizeOf(s)} onOpen={setSelected} />
         ))}
       </div>
+      )}
 
       <Modal open={!!selected} onClose={() => setSelected(null)} title={selected?.name ?? ""}>
         {selected && (
